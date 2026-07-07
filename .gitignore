@@ -1,0 +1,15 @@
+node_modules/
+.env
+.env.local
+.env*.local
+.next/
+dist/
+*.log
+.DS_Store
+gallery/sources/
+*.mp4
+*.mov
+*.webm
+*.wav
+*.mp3
+!launch/**/*.mp4

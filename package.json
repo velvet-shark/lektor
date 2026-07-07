@@ -1,0 +1,9 @@
+{
+  "name": "lektor-monorepo",
+  "private": true,
+  "scripts": {
+    "test": "pnpm -r test",
+    "build": "pnpm -r build"
+  },
+  "packageManager": "pnpm@9.15.0"
+}
