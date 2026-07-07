@@ -1,0 +1,64 @@
+{
+  "site": {
+    "title": "The Lektor",
+    "tagline": "The voice that started a $22B company.",
+    "heroLead": "Poland dubbed Hollywood with one bored man reading every part. It was perfect. ElevenLabs' founders grew up on that voice — this site brings it back, rebuilt with their own technology.",
+    "heroCta": "Lektor your own clip",
+    "galleryTitle": "Hear it",
+    "galleryHint": "Play a clip, then flip the switch — same moment, two worlds.",
+    "original": "Original",
+    "lektor": "Lektor",
+    "footerHomage": "An homage to the Polish lektor · Built on ElevenLabs scribe_v2 + eleven_v3",
+    "footerNoClone": "No lektors were cloned in the making of this site.",
+    "footerUploads": "Uploads are deleted after 24 hours.",
+    "footerDmca": "Content complaints",
+    "about": "About",
+    "powiedz": "/powiedz"
+  },
+  "upload": {
+    "title": "Lektor your own clip",
+    "hint": "mp4, mov or webm · up to 90 seconds · up to 150 MB · must contain speech",
+    "drop": "Drop a video here, or click to choose",
+    "consent": "Only upload videos you have the right to use. Uploads auto-delete after 24 hours.",
+    "tooLong": "That clip runs past 90 seconds. Trim it and try again.",
+    "tooBig": "That file is over 150 MB. A smaller export will do fine.",
+    "badType": "That doesn't look like a video. mp4, mov or webm, please.",
+    "uploading": "Uploading…",
+    "queued": "In the queue…",
+    "queuePosition": "Position in queue: {n}",
+    "states": {
+      "transcribing": "Listening closely…",
+      "translating": "Translating with appropriate flatness…",
+      "summoning": "Summoning the lektor…",
+      "mixing": "Lowering the original, respectfully…"
+    },
+    "failed": "This one didn't work: {reason}",
+    "noSpeech": "No speech detected in this clip — the lektor needs something to read.",
+    "done": "Done. Meet your lektor.",
+    "download": "Download",
+    "share": "Share your clip",
+    "another": "Do another one"
+  },
+  "clip": {
+    "notFound": "No such clip.",
+    "backHome": "Back to the gallery",
+    "license": "Source"
+  },
+  "about": {
+    "title": "The voice every Pole grew up with",
+    "body1": "In Poland, foreign films were never dubbed with a cast of actors. One man — the lektor — read every line, flat and unbothered, over the quieted original. Stallone, Streep, aliens, children: one voice. The style is called szeptanka — 'whispering'. To outsiders it sounds like a mistake. To Poles it sounds like home.",
+    "body2": "Mati Staniszewski and Piotr Dąbkowski grew up on that voice, and founded ElevenLabs in part because of it — the idea that machines should speak every language, beautifully. In 2026 the company was valued at $22 billion, weeks after the Polish government invested in it.",
+    "body3": "The Lektor closes the loop: the technology the lektor inspired, reproducing the lektor. Every clip is transcribed with scribe_v2, translated into flat Polish register by an LLM, read by a single Voice-Designed voice with eleven_v3, and mixed back over the ducked original with the authentic 600–900ms delay.",
+    "body4": "No real lektor's voice was cloned. The voice is a design — an archetype, not a person. That line matters.",
+    "credits": "Built by Radek · part of July of Voice"
+  },
+  "powiedz": {
+    "title": "Say it like a lektor",
+    "hint": "Type anything. Hear it read with professional indifference.",
+    "placeholder": "e.g. I'm going to make him an offer he can't refuse",
+    "button": "Read it",
+    "generating": "The lektor clears his throat…",
+    "error": "The lektor refuses. Try again in a moment.",
+    "tooLong": "Keep it under {max} characters — the lektor is a busy man."
+  }
+}

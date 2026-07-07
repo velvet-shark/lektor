@@ -1,0 +1,64 @@
+{
+  "site": {
+    "title": "The Lektor",
+    "tagline": "Głos, od którego wszystko się zaczęło.",
+    "heroLead": "Cały Hollywood czytany przez jednego znudzonego pana. I było idealnie. Założyciele ElevenLabs wychowali się na tym głosie — ta strona przywraca go, odtworzonego ich własną technologią.",
+    "heroCta": "Zlektoruj własny klip",
+    "galleryTitle": "Posłuchaj",
+    "galleryHint": "Włącz klip i przełącz w trakcie — ten sam moment, dwa światy.",
+    "original": "Oryginał",
+    "lektor": "Lektor",
+    "footerHomage": "Hołd dla polskiego lektora · Zbudowane na ElevenLabs scribe_v2 + eleven_v3",
+    "footerNoClone": "Przy tworzeniu tej strony nie sklonowano żadnego lektora.",
+    "footerUploads": "Przesłane pliki znikają po 24 godzinach.",
+    "footerDmca": "Zgłoszenia naruszeń",
+    "about": "O projekcie",
+    "powiedz": "/powiedz"
+  },
+  "upload": {
+    "title": "Zlektoruj własny klip",
+    "hint": "mp4, mov lub webm · do 90 sekund · do 150 MB · musi zawierać mowę",
+    "drop": "Upuść wideo tutaj albo kliknij, żeby wybrać",
+    "consent": "Wgrywaj tylko materiały, do których masz prawa. Pliki znikają po 24 godzinach.",
+    "tooLong": "Klip ma ponad 90 sekund. Przytnij i spróbuj jeszcze raz.",
+    "tooBig": "Plik ma ponad 150 MB. Mniejszy eksport w zupełności wystarczy.",
+    "badType": "To nie wygląda na wideo. Poproszę mp4, mov albo webm.",
+    "uploading": "Wysyłanie…",
+    "queued": "W kolejce…",
+    "queuePosition": "Miejsce w kolejce: {n}",
+    "states": {
+      "transcribing": "Uważnie słuchamy…",
+      "translating": "Tłumaczymy z należytą beznamiętnością…",
+      "summoning": "Budzimy lektora…",
+      "mixing": "Ściszamy oryginał, z szacunkiem…"
+    },
+    "failed": "Nie wyszło: {reason}",
+    "noSpeech": "W tym klipie nie ma mowy — lektor musi mieć co czytać.",
+    "done": "Gotowe. Oto Twój lektor.",
+    "download": "Pobierz",
+    "share": "Udostępnij klip",
+    "another": "Jeszcze jeden"
+  },
+  "clip": {
+    "notFound": "Nie ma takiego klipu.",
+    "backHome": "Wróć do galerii",
+    "license": "Źródło"
+  },
+  "about": {
+    "title": "Głos, na którym wychowała się cała Polska",
+    "body1": "W Polsce zagranicznych filmów nigdy nie dubbingowała obsada aktorów. Jeden człowiek — lektor — czytał wszystkie kwestie, płasko i niewzruszenie, ponad ściszonym oryginałem. Stallone, Streep, kosmici, dzieci: jeden głos. Ten styl to szeptanka. Dla obcokrajowców brzmi jak pomyłka. Dla nas — jak dom.",
+    "body2": "Mati Staniszewski i Piotr Dąbkowski wychowali się na tym głosie i po części dlatego założyli ElevenLabs — z przekonania, że maszyny powinny mówić każdym językiem, pięknie. W 2026 firma została wyceniona na 22 miliardy dolarów, kilka tygodni po inwestycji polskiego rządu.",
+    "body3": "The Lektor domyka pętlę: technologia, którą zainspirował lektor, odtwarza lektora. Każdy klip jest transkrybowany przez scribe_v2, tłumaczony na płaski lektorski rejestr przez LLM, czytany jednym zaprojektowanym głosem w eleven_v3 i miksowany nad ściszonym oryginałem z autentycznym opóźnieniem 600–900 ms.",
+    "body4": "Nie sklonowano głosu żadnego prawdziwego lektora. Ten głos to projekt — archetyp, nie osoba. Ta granica ma znaczenie.",
+    "credits": "Zbudował Radek · część July of Voice"
+  },
+  "powiedz": {
+    "title": "Powiedz to jak lektor",
+    "hint": "Wpisz cokolwiek. Usłysz to przeczytane z zawodową obojętnością.",
+    "placeholder": "np. Złożę mu propozycję nie do odrzucenia",
+    "button": "Przeczytaj",
+    "generating": "Lektor odchrząkuje…",
+    "error": "Lektor odmawia. Spróbuj za chwilę.",
+    "tooLong": "Maksymalnie {max} znaków — lektor to zajęty człowiek."
+  }
+}

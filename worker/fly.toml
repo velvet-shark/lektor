@@ -1,0 +1,24 @@
+# fly.io config for the lektor worker — no public service; the worker only
+# polls Postgres. Health is a tiny http server on 8080 returning queue depth.
+app = "lektor-worker"
+primary_region = "waw"
+
+[build]
+  dockerfile = "Dockerfile"
+  # build context must be the monorepo root:
+  #   fly deploy --config worker/fly.toml --dockerfile worker/Dockerfile .
+
+[env]
+  PORT = "8080"
+
+[checks.health]
+  type = "http"
+  port = 8080
+  path = "/"
+  interval = "30s"
+  timeout = "5s"
+  grace_period = "20s"
+
+[[vm]]
+  size = "shared-cpu-2x"
+  memory = "1gb"
