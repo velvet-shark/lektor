@@ -68,6 +68,19 @@ export const GALLERY: GalleryClip[] = [
     durationS: 75,
     license: "Public domain · Universal Newsreel (1958)",
   },
+  {
+    id: "radek",
+    titleEn: "Radek, lektor'd",
+    titlePl: "Radek z lektorem",
+    blurbEn: "The builder of this site, read by the voice he built. Full circle, twice.",
+    blurbPl: "Autor tej strony, czytany przez głos, który sam zbudował. Pętla domknięta podwójnie.",
+    originalUrl: "/gallery/radek.mp4",
+    lektorUrl: "/gallery/radek.lektor.mp4",
+    posterUrl: "/gallery/radek.jpg",
+    durationS: 90,
+    license: "Own content · velvetshark (2026)",
+    licenseUrl: "https://www.youtube.com/watch?v=NZ1mKAWJPr4",
+  },
 ];
 
 export const getClip = (id: string) => GALLERY.find((c) => c.id === id);
