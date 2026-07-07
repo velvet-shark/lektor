@@ -2,8 +2,8 @@ import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 function r2() {
-  const account = process.env.CLOUDFLARE_ACCOUNT_ID;
-  if (!account) throw new Error("CLOUDFLARE_ACCOUNT_ID not set");
+  const account = process.env.R2_ACCOUNT_ID ?? process.env.CLOUDFLARE_ACCOUNT_ID;
+  if (!account) throw new Error("R2_ACCOUNT_ID / CLOUDFLARE_ACCOUNT_ID not set");
   return new S3Client({
     region: "auto",
     endpoint: `https://${account}.r2.cloudflarestorage.com`,

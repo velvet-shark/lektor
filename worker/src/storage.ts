@@ -29,7 +29,7 @@ export function r2(): S3Client {
   if (!client) {
     client = new S3Client({
       region: "auto",
-      endpoint: `https://${env("CLOUDFLARE_ACCOUNT_ID")}.r2.cloudflarestorage.com`,
+      endpoint: `https://${process.env.R2_ACCOUNT_ID ?? env("CLOUDFLARE_ACCOUNT_ID")}.r2.cloudflarestorage.com`,
       credentials: {
         accessKeyId: env("R2_ACCESS_KEY_ID"),
         secretAccessKey: env("R2_SECRET_ACCESS_KEY"),

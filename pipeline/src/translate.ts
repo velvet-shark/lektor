@@ -34,14 +34,15 @@ export async function translateUtterances(
     .join("");
   const parsed = parseJsonArray(text);
   const byIndex = new Map(parsed.map((p) => [p.i, p.pl]));
-  return utterances.map((u) => {
-    const pl = byIndex.get(u.i);
-    if (!pl) {
-      console.error(`[translate] raw response was: ${text.slice(0, 2000)}`);
-      throw new Error(`translation missing for segment ${u.i}`);
-    }
-    return { ...u, pl };
-  });
+  // PRD §3.2: the model may DROP interjections when the visual carries them —
+  // a missing/empty translation means "no lektor line here", not an error.
+  return utterances
+    .filter((u) => {
+      const pl = byIndex.get(u.i);
+      if (!pl) console.log(`[translate] segment ${u.i} dropped by lektor register ("${u.text.slice(0, 40)}")`);
+      return Boolean(pl);
+    })
+    .map((u) => ({ ...u, pl: byIndex.get(u.i)! }));
 }
 
 /** PRD §3.4 rule 2: second pass for segments flagged by the scheduler. */

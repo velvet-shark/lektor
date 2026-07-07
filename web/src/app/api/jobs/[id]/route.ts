@@ -22,7 +22,7 @@ export async function GET(
     const pos = await db`
       select count(*)::int as n from jobs
       where status = 'queued' and created_at <= ${j.created_at}`;
-    position = pos[0].n;
+    position = Number(pos[0].n);
   }
 
   return NextResponse.json({
