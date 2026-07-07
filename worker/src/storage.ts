@@ -43,9 +43,18 @@ export function bucket(): string {
   return env("R2_BUCKET");
 }
 
-/** Public URL for a stored object (R2 public bucket / custom domain). */
-export function publicUrl(key: string): string {
-  return `${env("R2_PUBLIC_BASE").replace(/\/$/, "")}/${key}`;
+/**
+ * URL for a stored object: R2_PUBLIC_BASE when configured, otherwise a
+ * presigned GET valid 24h — which matches the upload auto-delete window.
+ */
+export async function publicUrl(key: string): Promise<string> {
+  const base = process.env.R2_PUBLIC_BASE;
+  if (base) return `${base.replace(/\/$/, "")}/${key}`;
+  return getSignedUrl(
+    r2(),
+    new GetObjectCommand({ Bucket: bucket(), Key: key }),
+    { expiresIn: 24 * 3600 }
+  );
 }
 
 /** Download an object to a local file. */

@@ -142,8 +142,11 @@ async function processJob(job: JobRow): Promise<void> {
     await putObjectFromFile(resultKey, output, "video/mp4");
     await putObjectFromFile(wmKey, wmOutput, "video/mp4");
 
+    const resultUrl = await publicUrl(resultKey);
     const metaPatch = {
-      download_url: publicUrl(wmKey),
+      download_url: await publicUrl(wmKey),
+      result_key: resultKey,
+      wm_key: wmKey,
       schedule_log: result.scheduleLog,
       language: result.languageCode,
       segments: result.segments,
@@ -155,9 +158,9 @@ async function processJob(job: JobRow): Promise<void> {
            meta = meta || $3::jsonb,
            finished_at = now(), updated_at = now()
        where id = $1`,
-      [job.id, publicUrl(resultKey), JSON.stringify(metaPatch)]
+      [job.id, resultUrl, JSON.stringify(metaPatch)]
     );
-    console.log(`[job ${job.id}] done → ${publicUrl(resultKey)}`);
+    console.log(`[job ${job.id}] done → ${resultUrl.slice(0, 100)}`);
   } catch (err) {
     console.error(`[job ${job.id}] failed:`, err);
     await pool
