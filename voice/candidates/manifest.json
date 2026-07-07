@@ -1,0 +1,164 @@
+{
+  "testText": "Nie wiem, kim jesteś. Nie wiem, czego chcesz. Jeśli szukasz okupu, nie mam pieniędzy. Ale mam pewne umiejętności. Umiejętności, które zdobywałem przez całą karierę. Jeśli puścisz moją córkę, na tym się skończy. Nie będę cię szukał. Ale jeśli tego nie zrobisz — będę cię szukał. Znajdę cię. I zabiję. Powodzenia.",
+  "descriptions": [
+    "Middle-aged Polish male voice reading text in a completely monotone, expressionless way. Absolutely no intonation changes, constant flat pitch throughout, like reading a phone book or a shopping list aloud. Zero emotional engagement with the content — he does not act, does not perform, does not react to meaning. Bored, detached, mechanical pacing, even rhythm, close microphone, dry studio sound. Even dramatic sentences are read with total indifference.",
+    "Polish male voice-over reader, deliberately dull and affectless delivery. Monotonous, uniform pitch with no melody, no emphasis on any word, no pauses for effect. Sounds tired and completely uninterested, like a clerk reading regulations aloud for the hundredth time. Flat, steady, emotionless, robotic cadence but a natural human timbre, low-mid register, close-mic, no reverb."
+  ],
+  "candidates": [
+    {
+      "id": "PROD+LOFI: the shipping sound",
+      "file": "final-1b-LOFI.mp3",
+      "description": 42
+    },
+    {
+      "id": "PROD:final-1b-v3-natural",
+      "file": "final-1b-v3-natural.mp3",
+      "description": 42
+    },
+    {
+      "id": "PROD:final-1b-mlv2-s090",
+      "file": "final-1b-mlv2-s090.mp3",
+      "description": 42
+    },
+    {
+      "id": "PROD:final-1b-mlv2-s080",
+      "file": "final-1b-mlv2-s080.mp3",
+      "description": 42
+    },
+    {
+      "id": "REFERENCE (real lektors — listen only, never cloned)",
+      "file": "../reference.mp3",
+      "description": 99
+    },
+    {
+      "id": "erNY6FmkfhHbJmvIDLfd",
+      "file": "r2-candidate-1a.mp3",
+      "description": 0
+    },
+    {
+      "id": "gyLbyEkjCdnIXKxcmly8",
+      "file": "r2-candidate-1b.mp3",
+      "description": 0
+    },
+    {
+      "id": "wYlklLAwgFcHLsJsSaPR",
+      "file": "r2-candidate-1c.mp3",
+      "description": 0
+    },
+    {
+      "id": "Y6jNdACkBFh4ruyWLvOu",
+      "file": "r2-candidate-2a.mp3",
+      "description": 1
+    },
+    {
+      "id": "Ncjl2R6jglhImIrXffij",
+      "file": "r2-candidate-2b.mp3",
+      "description": 1
+    },
+    {
+      "id": "vmpmIIagIcYOXEmLmuNl",
+      "file": "r2-candidate-2c.mp3",
+      "description": 1
+    },
+    {
+      "id": "PROD:tts-v3-robust",
+      "file": "tts-v3-robust.mp3",
+      "description": 2
+    },
+    {
+      "id": "PROD:tts-mlv2-s095",
+      "file": "tts-mlv2-s095.mp3",
+      "description": 2
+    },
+    {
+      "id": "PROD:tts-mlv2-s100",
+      "file": "tts-mlv2-s100.mp3",
+      "description": 2
+    },
+    {
+      "id": "O0DhAYaEgzCCERzu4f3q",
+      "file": "r3-candidate-1a.mp3",
+      "description": 0
+    },
+    {
+      "id": "0yeDGjwPGTBcbScDIZe2",
+      "file": "r3-candidate-1b.mp3",
+      "description": 0
+    },
+    {
+      "id": "QgLBvrmZgCUU8HYFUuBh",
+      "file": "r3-candidate-1c.mp3",
+      "description": 0
+    },
+    {
+      "id": "Xb2WRVAKYHywQwjPaEfw",
+      "file": "r3-candidate-2a.mp3",
+      "description": 1
+    },
+    {
+      "id": "8I6zIAZ4WG13FSQ1QmCr",
+      "file": "r3-candidate-2b.mp3",
+      "description": 1
+    },
+    {
+      "id": "ymCcUj5kiuOW0IBqA1KA",
+      "file": "r3-candidate-2c.mp3",
+      "description": 1
+    },
+    {
+      "id": "LIB:FufjbVi74N1AqR9cdxeD",
+      "file": "lib-marcin-olszewski.mp3",
+      "description": 9
+    },
+    {
+      "id": "LIB:a0dqNixIRHh8WNiryxzp",
+      "file": "lib-cezary.mp3",
+      "description": 9
+    },
+    {
+      "id": "LIB:kQJjqvRSVKY0NesMuT8L",
+      "file": "lib-romuald-aldee.mp3",
+      "description": 9
+    },
+    {
+      "id": "LIB:pSeHjczf70JDXR8uNDkN",
+      "file": "lib-jan-gajos-.mp3",
+      "description": 9
+    },
+    {
+      "id": "OSDgUv2Mkc2jUXLmbnEA",
+      "file": "r4-candidate-1a.mp3",
+      "description": 0
+    },
+    {
+      "id": "GD6eT5qmEQm84e1Ci4xD",
+      "file": "r4-candidate-1b.mp3",
+      "description": 0
+    },
+    {
+      "id": "edZMBHD6O0KiU0xPfIAk",
+      "file": "r4-candidate-1c.mp3",
+      "description": 0
+    },
+    {
+      "id": "YdU2q7NGuQnEet8RwtSN",
+      "file": "r4-candidate-2a.mp3",
+      "description": 1
+    },
+    {
+      "id": "BYrdEuEPgbjsnOLOo1Qm",
+      "file": "r4-candidate-2b.mp3",
+      "description": 1
+    },
+    {
+      "id": "GbJIpbGNLWaMWmeCCAaV",
+      "file": "r4-candidate-2c.mp3",
+      "description": 1
+    },
+    {
+      "id": "LIB:gzP09k7BnuE4KBPrvBnk",
+      "file": "lek-dominik---articulate-and-velvety.mp3",
+      "description": 9
+    }
+  ]
+}

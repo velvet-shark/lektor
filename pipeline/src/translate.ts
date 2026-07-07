@@ -36,7 +36,10 @@ export async function translateUtterances(
   const byIndex = new Map(parsed.map((p) => [p.i, p.pl]));
   return utterances.map((u) => {
     const pl = byIndex.get(u.i);
-    if (!pl) throw new Error(`translation missing for segment ${u.i}`);
+    if (!pl) {
+      console.error(`[translate] raw response was: ${text.slice(0, 2000)}`);
+      throw new Error(`translation missing for segment ${u.i}`);
+    }
     return { ...u, pl };
   });
 }
@@ -64,5 +67,8 @@ export async function recondense(
 function parseJsonArray(text: string): { i: number; pl: string }[] {
   const match = text.match(/\[[\s\S]*\]/);
   if (!match) throw new Error(`no JSON array in translation response: ${text.slice(0, 200)}`);
-  return JSON.parse(match[0]);
+  const arr = JSON.parse(match[0]) as { i: number | string; pl?: unknown; text?: unknown }[];
+  return arr
+    .map((p) => ({ i: Number(p.i), pl: String(p.pl ?? p.text ?? "").trim() }))
+    .filter((p) => p.pl !== "");
 }

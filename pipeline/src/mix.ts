@@ -27,12 +27,21 @@ export interface MixOptions {
   fadeMs?: number; // 180 per PRD
   /** burn the corner watermark PNG into the video (downloads only) */
   watermark?: boolean;
+  /** 90s VHS-era treatment on the lektor track (default true): band-limit,
+   * light compression, short slapback echo — the TV chain the voice lived in */
+  lofi?: boolean;
 }
+
+/** The 90s TV chain: telephone-adjacent band, squashed dynamics, hint of room. */
+export const LOFI_CHAIN =
+  "highpass=f=150,lowpass=f=6500," +
+  "acompressor=threshold=-18dB:ratio=3:attack=5:release=120:makeup=2," +
+  "aecho=0.7:0.25:16:0.18";
 
 export function buildFilterGraph(
   placements: Placement[],
   windows: DuckWindow[],
-  { duckLevel = 0.3, fadeMs = 180 }: { duckLevel?: number; fadeMs?: number } = {}
+  { duckLevel = 0.3, fadeMs = 180, lofi = true }: { duckLevel?: number; fadeMs?: number; lofi?: boolean } = {}
 ): { filter: string; lektorInputs: string[] } {
   const fade = fadeMs / 1000;
   // Static volume automation (predictable > sidechain): for each lektor window
@@ -55,6 +64,7 @@ export function buildFilterGraph(
     const input = idx + 1; // input 0 = video, 1..N = lektor segment files
     const chain: string[] = [];
     if (p.atempo > 1.0) chain.push(`atempo=${p.atempo}`);
+    if (lofi) chain.push(LOFI_CHAIN);
     chain.push(`adelay=${p.atMs}|${p.atMs}`);
     chain.push("apad=pad_dur=0.1");
     parts.push(`[${input}:a]${chain.join(",")}[l${idx}]`);

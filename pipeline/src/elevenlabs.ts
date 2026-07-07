@@ -136,7 +136,8 @@ export interface VoicePreview {
 
 export async function designVoicePreviews(
   voiceDescription: string,
-  sampleText: string
+  sampleText: string,
+  guidanceScale?: number
 ): Promise<VoicePreview[]> {
   const res = await api("/v1/text-to-voice/design", {
     method: "POST",
@@ -145,6 +146,8 @@ export async function designVoicePreviews(
       voice_description: voiceDescription,
       text: sampleText,
       model_id: "eleven_ttv_v3",
+      // higher = stick closer to the description (flatness) at some audio-quality cost
+      ...(guidanceScale !== undefined ? { guidance_scale: guidanceScale } : {}),
     }),
   });
   const json = (await res.json()) as {

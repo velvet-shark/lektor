@@ -18,8 +18,8 @@ mkdirSync(OUT, { recursive: true });
 
 // Two slightly different flat-lektor briefs → 3 previews each.
 const DESCRIPTIONS = [
-  "Middle-aged Polish male voice-over narrator, completely flat prosody, low emotional affect, deadpan and slightly detached, sounds like he is reading from a sheet of paper, close-mic studio recording, dry, no reverb, steady even pace. The classic Polish film lektor (szeptanka) style: calm, monotone, unbothered by the drama of what he reads.",
-  "Mature Polish man in his fifties reading film dialogue as a voice-over lektor, monotone delivery, minimal intonation, emotionally neutral, professional broadcast narrator from 1990s Polish television, close microphone, warm low-mid timbre, unhurried, never excited, slight paper-reading quality.",
+  "Middle-aged Polish male voice reading text in a completely monotone, expressionless way. Absolutely no intonation changes, constant flat pitch throughout, like reading a phone book or a shopping list aloud. Zero emotional engagement with the content — he does not act, does not perform, does not react to meaning. Bored, detached, mechanical pacing, even rhythm, close microphone, dry studio sound. Even dramatic sentences are read with total indifference.",
+  "Polish male voice-over reader, deliberately dull and affectless delivery. Monotonous, uniform pitch with no melody, no emphasis on any word, no pauses for effect. Sounds tired and completely uninterested, like a clerk reading regulations aloud for the hundredth time. Flat, steady, emotionless, robotic cadence but a natural human timbre, low-mid register, close-mic, no reverb.",
 ];
 
 // The SAME Polish test text for every candidate (100–1000 chars required).
@@ -30,9 +30,9 @@ async function main() {
   const manifest: { id: string; file: string; description: number }[] = [];
   for (let d = 0; d < DESCRIPTIONS.length; d++) {
     console.log(`[voice] design call ${d + 1}/${DESCRIPTIONS.length}…`);
-    const previews = await designVoicePreviews(DESCRIPTIONS[d], TEST_TEXT);
+    const previews = await designVoicePreviews(DESCRIPTIONS[d], TEST_TEXT, 38);
     previews.forEach((p, i) => {
-      const file = `candidate-${d + 1}${String.fromCharCode(97 + i)}.mp3`;
+      const file = `r2-candidate-${d + 1}${String.fromCharCode(97 + i)}.mp3`;
       writeFileSync(resolve(OUT, file), Buffer.from(p.audioBase64, "base64"));
       manifest.push({ id: p.generatedVoiceId, file, description: d });
       console.log(`  saved ${file} (generated_voice_id=${p.generatedVoiceId})`);
