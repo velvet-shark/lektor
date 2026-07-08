@@ -4,8 +4,8 @@
     {
       "name": "web",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--dir", "web", "dev", "-p", "3199"],
-      "port": 3199
+      "runtimeArgs": ["--dir", "web", "dev", "-p", "3204"],
+      "port": 3204
     }
   ]
 }

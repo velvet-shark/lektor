@@ -15,28 +15,28 @@ export default async function Home({
   const pl = locale === "pl";
 
   return (
-    <main className="mx-auto max-w-5xl px-5">
-      {/* hero — the story IS the product */}
-      <section className="py-14 text-center sm:py-20">
-        <h1 className="display mx-auto max-w-3xl text-4xl leading-tight sm:text-6xl">
-          {t("tagline")}
+    <div>
+      {/* hero — rows 1–6 of the page */}
+      <section className="pt-4">
+        <h1 className="tt-row tt-row-1 tt-ext tt-dh text-2xl text-tt-white sm:text-4xl">
+          THE LEKTOR
         </h1>
-        <p className="mx-auto mt-6 max-w-2xl text-base leading-relaxed text-paper-dim sm:text-lg">
+        <p className="tt-row tt-row-2 tt-bar bg-tt-blue text-tt-yellow">
+          {t("tagline")}
+        </p>
+        <p className="tt-row tt-row-3 mt-3 max-w-[62ch] leading-relaxed text-tt-white">
           {t("heroLead")}
         </p>
-        <a
-          href="#upload"
-          className="mono mt-8 inline-block rounded-full bg-pl-red px-6 py-3 text-sm text-white transition-transform hover:scale-[1.03]"
-        >
-          {t("heroCta")} ↓
-        </a>
+        <div className="tt-row tt-row-4 tt-mosaic mt-5 text-tt-red" aria-hidden />
       </section>
 
       {/* gallery — instant wow, zero pipeline */}
-      <section className="py-10">
-        <h2 className="display text-2xl sm:text-3xl">{t("galleryTitle")}</h2>
-        <p className="mt-1 text-sm text-paper-dim">{t("galleryHint")}</p>
-        <div className="mt-8 grid gap-10 sm:grid-cols-2">
+      <section id="gallery" className="tt-row tt-row-5 scroll-mt-4 pt-8">
+        <h2 className="tt-bar bg-tt-green font-bold uppercase text-tt-black">
+          {t("galleryTitle")}
+        </h2>
+        <p className="mt-1 text-[0.85em] text-tt-cyan">{t("galleryHint")}</p>
+        <div className="mt-6 grid gap-10 sm:grid-cols-2 sm:gap-x-6">
           {GALLERY.map((clip) => (
             <div key={clip.id}>
               <ABPlayer
@@ -48,15 +48,15 @@ export default async function Home({
               <div className="mt-2 flex items-baseline justify-between gap-3">
                 <Link
                   href={`/clip/${clip.id}`}
-                  className="display text-lg hover:underline"
+                  className="font-bold uppercase text-tt-cyan hover:bg-tt-cyan hover:text-tt-black"
                 >
                   {pl ? clip.titlePl : clip.titleEn}
                 </Link>
-                <span className="mono shrink-0 text-[11px] text-paper-dim">
-                  {clip.license}
+                <span className="shrink-0 text-[0.7em] text-tt-dim">
+                  {clip.license.split("·")[0]?.trim()}
                 </span>
               </div>
-              <p className="mt-1 text-sm text-paper-dim">
+              <p className="mt-1 text-[0.85em] leading-snug text-tt-white">
                 {pl ? clip.blurbPl : clip.blurbEn}
               </p>
             </div>
@@ -64,8 +64,10 @@ export default async function Home({
         </div>
       </section>
 
+      <div className="tt-mosaic mt-10 text-tt-blue" aria-hidden />
+
       {/* second act: your own clip */}
       <UploadSection />
-    </main>
+    </div>
   );
 }

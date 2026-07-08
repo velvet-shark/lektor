@@ -13,6 +13,9 @@ const fmt = (s: number) => {
  * flips muted/opacity — no loading, no seek in the common case (<100ms).
  * The lagging element is nudged to the leader's currentTime on every toggle
  * and re-synced when drift exceeds 60ms.
+ *
+ * Visually: a broadcast window inset in the teletext page — hard white frame,
+ * square red play block, cell-blocky progress row. No curve survives.
  */
 export default function ABPlayer({
   originalUrl,
@@ -111,7 +114,8 @@ export default function ABPlayer({
 
   return (
     <div className={`group relative ${className}`}>
-      <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+      {/* the broadcast window, inset in the page */}
+      <div className="relative aspect-video w-full overflow-hidden border-2 border-tt-white bg-tt-black">
         <video ref={origRef} src={originalUrl} {...vid("original")} />
         <video ref={lekRef} src={lektorUrl} {...vid("lektor")} />
         {!playing && (
@@ -120,36 +124,36 @@ export default function ABPlayer({
             aria-label="play"
             className="absolute inset-0 z-10 grid place-items-center"
           >
-            <span className="grid h-16 w-16 place-items-center rounded-full bg-pl-red/90 pl-1 text-2xl text-white shadow-lg transition-transform group-hover:scale-105">
+            <span className="grid h-14 w-14 place-items-center bg-tt-red pl-1 text-2xl text-tt-white group-hover:bg-tt-yellow group-hover:text-tt-black">
               ▶
             </span>
           </button>
         )}
         {/* duration badge before playback starts */}
         {!playing && time === 0 && (
-          <span className="mono absolute bottom-2 right-2 z-10 rounded bg-black/70 px-2 py-0.5 text-xs text-white">
+          <span className="absolute bottom-1 right-1 z-10 bg-tt-black px-2 text-[0.75em] text-tt-white">
             {fmt(duration)}
           </span>
         )}
-        {/* progress bar + timecode, click to seek (both videos stay in sync) */}
+        {/* progress row + timecode, click to seek (both videos stay in sync) */}
         {(playing || time > 0) && (
           <div className="absolute inset-x-0 bottom-0 z-10">
-            <div className="mono flex items-center justify-between px-2 pb-1 text-[11px] text-white/90">
-              <span className="rounded bg-black/60 px-1.5 py-0.5">{fmt(time)}</span>
-              <span className="rounded bg-black/60 px-1.5 py-0.5">{fmt(duration)}</span>
+            <div className="flex items-center justify-between px-1 pb-0.5 text-[0.7em]">
+              <span className="bg-tt-black px-1 text-tt-green">{fmt(time)}</span>
+              <span className="bg-tt-black px-1 text-tt-white">{fmt(duration)}</span>
             </div>
             <div
               onClick={seek}
-              className="group/bar h-2.5 w-full cursor-pointer bg-black/50 pt-1.5"
+              className="h-3 w-full cursor-pointer bg-tt-black pt-1"
               role="slider"
               aria-label="seek"
               aria-valuemin={0}
               aria-valuemax={Math.round(duration)}
               aria-valuenow={Math.round(time)}
             >
-              <div className="relative h-1 w-full bg-white/20">
+              <div className="relative h-2 w-full bg-tt-blue">
                 <div
-                  className="absolute inset-y-0 left-0 bg-pl-red"
+                  className="absolute inset-y-0 left-0 bg-tt-yellow"
                   style={{ width: duration ? `${(time / duration) * 100}%` : "0%" }}
                 />
               </div>
@@ -158,28 +162,28 @@ export default function ABPlayer({
         )}
       </div>
 
-      <div className="mt-3 flex items-center justify-center">
-        <div className="ab-switch bg-crt-2">
-          <span
-            className="thumb"
-            style={{
-              transform: mode === "original" ? "translateX(0)" : "translateX(100%)",
-              zIndex: 0,
-            }}
-          />
-          <button
-            onClick={() => toggle("original")}
-            className={`relative z-10 ${mode === "original" ? "text-white" : "text-paper-dim"}`}
-          >
-            {labels.original}
-          </button>
-          <button
-            onClick={() => toggle("lektor")}
-            className={`relative z-10 ${mode === "lektor" ? "text-white" : "text-paper-dim"}`}
-          >
-            {labels.lektor}
-          </button>
-        </div>
+      {/* the switch: two hard teletext keys, active = solid block */}
+      <div className="mt-2 grid grid-cols-2 border border-tt-dim text-center text-[0.85em] uppercase">
+        <button
+          onClick={() => toggle("original")}
+          className={`cursor-pointer px-2 py-1.5 ${
+            mode === "original"
+              ? "bg-tt-cyan text-tt-black"
+              : "text-tt-cyan hover:text-tt-white"
+          }`}
+        >
+          {labels.original}
+        </button>
+        <button
+          onClick={() => toggle("lektor")}
+          className={`cursor-pointer px-2 py-1.5 ${
+            mode === "lektor"
+              ? "bg-tt-yellow text-tt-black"
+              : "text-tt-yellow hover:text-tt-white"
+          }`}
+        >
+          {labels.lektor}
+        </button>
       </div>
     </div>
   );

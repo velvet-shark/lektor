@@ -1,29 +1,74 @@
 @import "tailwindcss";
 
+/*
+ * The page IS a teletext screen.
+ *
+ * Telegazeta, faithfully: the SAA5050 character set (Bedstead), the eight
+ * broadcast colors used as solid text/background pairs, hard cell edges,
+ * mosaic block ornaments, a real clock, a fastext row. No rounded corner,
+ * no shadow, no gradient anywhere. The humor is in the copy staying flat.
+ */
+
+@font-face {
+  font-family: "Bedstead";
+  src: url("/fonts/bedstead.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bedstead";
+  src: url("/fonts/bedstead-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "Bedstead Extended";
+  src: url("/fonts/bedstead-extended.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 @theme {
-  --color-crt: #0b0b0f;
-  --color-crt-2: #121218;
-  --color-paper: #e8e4da;
-  --color-paper-dim: #9d998f;
-  --color-pl-red: #dc143c;
-  --color-amber: #e0a458;
-  --font-display: "Georgia", "Times New Roman", serif;
-  --font-body: ui-sans-serif, system-ui, sans-serif;
-  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+  /* the eight — full broadcast saturation, as the decoder chip made them */
+  --color-tt-black: #000000;
+  --color-tt-red: #ff2200;
+  --color-tt-green: #00dd33;
+  --color-tt-yellow: #ffee00;
+  --color-tt-blue: #0000c8;
+  --color-tt-magenta: #ff44dd;
+  --color-tt-cyan: #00eeee;
+  --color-tt-white: #eeeeee;
+  --color-tt-dim: #888888;
+
+  --font-tt: "Bedstead", "Courier New", monospace;
+  --font-tt-ext: "Bedstead Extended", "Bedstead", "Courier New", monospace;
 }
 
 html {
-  background: var(--color-crt);
-  color: var(--color-paper);
+  background: var(--color-tt-black);
+  color: var(--color-tt-white);
   scroll-behavior: smooth;
 }
 
 body {
-  font-family: var(--font-body);
+  font-family: var(--font-tt);
+  font-size: 17px;
+  line-height: 1.45;
   min-height: 100dvh;
 }
+@media (min-width: 640px) {
+  body { font-size: 19px; }
+}
 
-/* faint scanline texture — the CRT the lektor lived in */
+::selection {
+  background: var(--color-tt-yellow);
+  color: var(--color-tt-black);
+}
+
+/* the raster the decoder painted on */
 .scanlines::before {
   content: "";
   position: fixed;
@@ -33,50 +78,109 @@ body {
     to bottom,
     transparent 0px,
     transparent 2px,
-    rgba(255, 255, 255, 0.012) 3px,
+    rgba(255, 255, 255, 0.02) 3px,
     transparent 4px
   );
   z-index: 50;
 }
 
-.display {
-  font-family: var(--font-display);
-  letter-spacing: -0.01em;
+.tt-ext { font-family: var(--font-tt-ext); }
+
+/*
+ * Double height, the real way: same character width, twice the scanlines.
+ * The element keeps its 1-line layout box; scaleY(2) paints the second line
+ * and the margin reserves the space for it. Single-line use only.
+ */
+.tt-dh {
+  display: block;
+  line-height: 1.1;
+  transform: scaleY(2);
+  transform-origin: 0 0;
+  margin-bottom: 1.1em;
+  white-space: nowrap;
 }
 
-.mono {
-  font-family: var(--font-mono);
+/* solid color block — the only "component" teletext ever had */
+.tt-bar {
+  display: block;
+  padding: 0.15em 0.5ch;
 }
 
-@keyframes pulse-dim {
+/* mosaic block ornament rows (2×3 cells, drawn in CSS) */
+.tt-mosaic {
+  height: 14px;
+  background:
+    conic-gradient(currentColor 25%, transparent 0 50%, currentColor 0 75%, transparent 0)
+    0 0 / 14px 14px;
+}
+.tt-mosaic-thin {
+  height: 7px;
+  background:
+    repeating-linear-gradient(90deg, currentColor 0 7px, transparent 7px 14px);
+}
+
+/* the page paints in row by row — stepped, never eased */
+@keyframes tt-paint {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.tt-row { animation: tt-paint 200ms steps(2, end) both; }
+.tt-row-1 { animation-delay: 80ms; }
+.tt-row-2 { animation-delay: 200ms; }
+.tt-row-3 { animation-delay: 320ms; }
+.tt-row-4 { animation-delay: 440ms; }
+.tt-row-5 { animation-delay: 560ms; }
+
+/* canonical teletext blink: hard on/off */
+@keyframes tt-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+.tt-blink { animation: tt-blink 1.2s step-end infinite; }
+
+/* busy states pulse in steps, like a held page */
+@keyframes tt-pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.55; }
+  50% { opacity: 0.4; }
 }
-.pulse-dim { animation: pulse-dim 1.6s ease-in-out infinite; }
+.tt-pulse { animation: tt-pulse 1.4s step-end infinite; }
 
-/* A-B switch */
-.ab-switch {
-  position: relative;
-  display: inline-flex;
-  border: 1px solid rgba(232, 228, 218, 0.25);
-  border-radius: 9999px;
-  overflow: hidden;
+@media (prefers-reduced-motion: reduce) {
+  .tt-row, .tt-blink, .tt-pulse { animation: none; }
+}
+
+/* focus: a teletext cursor, not a glow */
+a:focus-visible,
+button:focus-visible,
+textarea:focus-visible,
+[role="slider"]:focus-visible {
+  outline: 2px solid var(--color-tt-cyan);
+  outline-offset: 1px;
+}
+
+/* fastext keys — the sanctioned button idiom */
+.fastext {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  font-family: var(--font-tt);
   user-select: none;
 }
-.ab-switch button {
-  padding: 0.4rem 1.1rem;
-  font-size: 0.8rem;
-  font-family: var(--font-mono);
-  text-transform: lowercase;
-  transition: color 120ms ease;
+.fastext a,
+.fastext button {
+  display: block;
+  min-width: 0;
+  padding: 0.45em 0.25ch;
+  text-align: center;
+  color: var(--color-tt-black);
+  font-size: 0.75em;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
   cursor: pointer;
 }
-.ab-switch .thumb {
-  position: absolute;
-  top: 0; bottom: 0;
-  width: 50%;
-  background: var(--color-pl-red);
-  border-radius: 9999px;
-  transition: transform 90ms ease-out;
-  z-index: -1;
+@media (min-width: 640px) {
+  .fastext a,
+  .fastext button { font-size: 0.85em; padding: 0.45em 0.5ch; }
 }
+.fastext a:hover,
+.fastext button:hover { filter: brightness(1.15); }

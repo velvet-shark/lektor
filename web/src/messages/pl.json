@@ -13,7 +13,13 @@
     "footerUploads": "Przesłane pliki znikają po 24 godzinach.",
     "footerDmca": "Zgłoszenia naruszeń",
     "about": "O projekcie",
-    "powiedz": "/powiedz"
+    "powiedz": "/powiedz",
+    "ident": "TELEGAZETA",
+    "fastRed": "zlektoruj",
+    "fastGreen": "posłuchaj",
+    "fastYellow": "powiedz",
+    "fastCyan": "o projekcie",
+    "endOfPage": "koniec strony. dalej nic nie ma."
   },
   "upload": {
     "title": "Zlektoruj własny klip",
