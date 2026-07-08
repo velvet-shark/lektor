@@ -13,7 +13,7 @@
     "footerUploads": "Uploads are deleted after 24 hours.",
     "footerDmca": "Content complaints",
     "about": "About",
-    "powiedz": "/powiedz"
+    "powiedz": "say it"
   },
   "upload": {
     "title": "Lektor your own clip",
@@ -54,7 +54,7 @@
   },
   "powiedz": {
     "title": "Say it like a lektor",
-    "hint": "Type anything. Hear it read with professional indifference.",
+    "hint": "Type anything, in any language — the lektor reads it back exactly as written, in that language, with his professional indifference. No translation happens here: English in, English out (with a Polish shrug). Great for tweets, threats and wedding vows.",
     "placeholder": "e.g. I'm going to make him an offer he can't refuse",
     "button": "Read it",
     "generating": "The lektor clears his throat…",
