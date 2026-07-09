@@ -8,22 +8,16 @@
       "port": 3199
     },
     {
-      "name": "design-a",
+      "name": "design-d",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--dir", "/Users/radek/Developer/lektor/.claude/worktrees/agent-a9d566e5a07accda4/web", "dev", "-p", "3201"],
-      "port": 3201
+      "runtimeArgs": ["--dir", "/Users/radek/Developer/lektor/.claude/worktrees/agent-a0137e0bd1fc95de5/web", "dev", "-p", "3204"],
+      "port": 3204
     },
     {
-      "name": "design-b",
+      "name": "design-e",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--dir", "/Users/radek/Developer/lektor/.claude/worktrees/agent-a3132cd59c73c27e7/web", "dev", "-p", "3202"],
-      "port": 3202
-    },
-    {
-      "name": "design-c",
-      "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["--dir", "/Users/radek/Developer/lektor/.claude/worktrees/agent-ab716f5a761d79f9e/web", "dev", "-p", "3203"],
-      "port": 3203
+      "runtimeArgs": ["--dir", "/Users/radek/Developer/lektor/.claude/worktrees/agent-a857dcec3c2f1dbdf/web", "dev", "-p", "3205"],
+      "port": 3205
     }
   ]
 }
