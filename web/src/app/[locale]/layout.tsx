@@ -23,20 +23,20 @@ export async function generateMetadata({
   const site = getSiteUrl();
   return {
     metadataBase: site,
-    title: { default: `${t("title")} — ${t("tagline")}`, template: "%s — The Lektor" },
+    title: { default: `${t("title")} · ${t("tagline")}`, template: "%s · The Lektor" },
     description: t("heroLead"),
     robots: { index: true, follow: true },
     openGraph: {
       type: "website",
       siteName: t("title"),
-      title: `${t("title")} — ${t("tagline")}`,
+      title: `${t("title")} · ${t("tagline")}`,
       description: t("heroLead"),
       locale: locale === "pl" ? "pl_PL" : "en_US",
       images: [{ url: "/og.png", width: 1200, height: 630, alt: t("title") }],
     },
     twitter: {
       card: "summary_large_image",
-      title: `${t("title")} — ${t("tagline")}`,
+      title: `${t("title")} · ${t("tagline")}`,
       description: t("heroLead"),
       images: ["/og.png"],
     },

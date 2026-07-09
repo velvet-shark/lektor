@@ -2,10 +2,10 @@
   "site": {
     "title": "The Lektor",
     "tagline": "The voice that started a $22B company.",
-    "heroLead": "Poland dubbed Hollywood with one bored man reading every part. It was perfect. ElevenLabs' founders grew up on that voice — this site brings it back, rebuilt with their own technology.",
+    "heroLead": "Poland dubbed Hollywood with one bored man reading every part. It was perfect. The founders of ElevenLabs grew up on that voice. I rebuilt him with their own technology.",
     "heroCta": "Lektor your own clip",
     "galleryTitle": "Hear it",
-    "galleryHint": "Play a clip, then flip the switch — same moment, two worlds.",
+    "galleryHint": "Play a clip, then flip the switch. Same moment, two worlds.",
     "original": "Original",
     "lektor": "Lektor",
     "footerHomage": "An homage to the Polish lektor · Built on ElevenLabs scribe_v2 + multilingual v2",
@@ -40,7 +40,7 @@
     },
     "failed": "This one didn't work: {reason}",
     "storageUnavailable": "The upload service is temporarily unreachable. Try again in a moment.",
-    "noSpeech": "No speech detected in this clip — the lektor needs something to read.",
+    "noSpeech": "No speech in this clip. The lektor needs something to read.",
     "done": "Done. Meet your lektor.",
     "download": "Download",
     "share": "Share your clip",
@@ -54,19 +54,19 @@
   },
   "about": {
     "title": "The voice every Pole grew up with",
-    "body1": "In Poland, foreign films were never dubbed with a cast of actors. One man — the lektor — read every line, flat and unbothered, over the quieted original. Stallone, Streep, aliens, children: one voice. The style is called szeptanka — 'whispering'. To outsiders it sounds like a mistake. To Poles it sounds like home.",
-    "body2": "Mati Staniszewski and Piotr Dąbkowski grew up on that voice, and founded ElevenLabs in part because of it — the idea that machines should speak every language, beautifully. In 2026 the company was valued at $22 billion, weeks after the Polish government invested in it.",
-    "body3": "The Lektor closes the loop: the technology the lektor inspired, reproducing the lektor. Every clip is transcribed with scribe_v2, translated into flat Polish register by an LLM, read by one Voice-Designed voice with multilingual v2, and mixed back over the ducked original with the authentic 600–900ms delay.",
-    "body4": "No real lektor's voice was cloned. The voice is a design — an archetype, not a person. That line matters.",
+    "body1": "Poland never dubbed foreign films with a cast of actors. We got one man instead. The lektor read every line, flat and unbothered, over the quieted original. Stallone, Streep, aliens, children: one voice. The style is called szeptanka, 'whispering'. Foreigners hear a broken television. Poles hear home.",
+    "body2": "Mati Staniszewski and Piotr Dąbkowski grew up on that voice and started ElevenLabs partly because of it. They wanted machines that speak every language properly. In 2026 their company was valued at $22 billion, weeks after the Polish government put money into it.",
+    "body3": "This site closes the loop: the technology the lektor inspired now reads like him. Every clip is transcribed with scribe_v2, translated into flat lektor Polish by an LLM, read by a single designed voice with multilingual v2, and mixed over the quieted original with the authentic 600 to 900 ms delay. He always starts late. That's the craft.",
+    "body4": "No real lektor was cloned for this. Not Knapik, not Gudowski, nobody. The voice was designed from scratch: an archetype, not a person. I'm Polish, so I checked twice.",
     "credits": "Built by Radek · velvetshark.com"
   },
   "powiedz": {
     "title": "Say it like a lektor",
-    "hint": "Type anything, in any language — the lektor reads it back exactly as written, in that language, with his professional indifference. No translation happens here: English in, English out (with a Polish shrug). Great for tweets, threats and wedding vows.",
+    "hint": "Type anything in any language and the lektor reads it back exactly as written, with his professional indifference. Nothing gets translated here. English in, English out, plus a Polish shrug. Works for tweets, threats and wedding vows.",
     "placeholder": "e.g. I'm going to make him an offer he can't refuse",
     "button": "Read it",
     "generating": "The lektor clears his throat…",
     "error": "The lektor refuses. Try again in a moment.",
-    "tooLong": "Keep it under {max} characters — the lektor is a busy man."
+    "tooLong": "Keep it under {max} characters. The lektor is a busy man."
   }
 }

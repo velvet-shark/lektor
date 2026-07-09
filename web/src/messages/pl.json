@@ -2,10 +2,10 @@
   "site": {
     "title": "The Lektor",
     "tagline": "Głos, od którego wszystko się zaczęło.",
-    "heroLead": "Cały Hollywood czytany przez jednego znudzonego pana. I było idealnie. Założyciele ElevenLabs wychowali się na tym głosie — ta strona przywraca go, odtworzonego ich własną technologią.",
+    "heroLead": "Cały Hollywood czytany przez jednego znudzonego pana. I było idealnie. Założyciele ElevenLabs wychowali się na tym głosie. Odtworzyłem go ich własną technologią.",
     "heroCta": "Zlektoruj własny klip",
     "galleryTitle": "Posłuchaj",
-    "galleryHint": "Włącz klip i przełącz w trakcie — ten sam moment, dwa światy.",
+    "galleryHint": "Włącz klip i przełącz w trakcie. Ten sam moment, dwa światy.",
     "original": "Oryginał",
     "lektor": "Lektor",
     "footerHomage": "Hołd dla polskiego lektora · Zbudowane na ElevenLabs scribe_v2 + multilingual v2",
@@ -40,7 +40,7 @@
     },
     "failed": "Nie wyszło: {reason}",
     "storageUnavailable": "Wysyłanie plików jest chwilowo niedostępne. Spróbuj ponownie za moment.",
-    "noSpeech": "W tym klipie nie ma mowy — lektor musi mieć co czytać.",
+    "noSpeech": "W tym klipie nie ma mowy. Lektor musi mieć co czytać.",
     "done": "Gotowe. Oto Twój lektor.",
     "download": "Pobierz",
     "share": "Udostępnij klip",
@@ -54,19 +54,19 @@
   },
   "about": {
     "title": "Głos, na którym wychowała się cała Polska",
-    "body1": "W Polsce zagranicznych filmów nigdy nie dubbingowała obsada aktorów. Jeden człowiek — lektor — czytał wszystkie kwestie, płasko i niewzruszenie, ponad ściszonym oryginałem. Stallone, Streep, kosmici, dzieci: jeden głos. Ten styl to szeptanka. Dla obcokrajowców brzmi jak pomyłka. Dla nas — jak dom.",
-    "body2": "Mati Staniszewski i Piotr Dąbkowski wychowali się na tym głosie i po części dlatego założyli ElevenLabs — z przekonania, że maszyny powinny mówić każdym językiem, pięknie. W 2026 firma została wyceniona na 22 miliardy dolarów, kilka tygodni po inwestycji polskiego rządu.",
-    "body3": "The Lektor domyka pętlę: technologia, którą zainspirował lektor, odtwarza lektora. Każdy klip jest transkrybowany przez scribe_v2, tłumaczony na płaski lektorski rejestr przez LLM, czytany jednym zaprojektowanym głosem w multilingual v2 i miksowany nad ściszonym oryginałem z autentycznym opóźnieniem 600–900 ms.",
-    "body4": "Nie sklonowano głosu żadnego prawdziwego lektora. Ten głos to projekt — archetyp, nie osoba. Ta granica ma znaczenie.",
+    "body1": "W Polsce zagranicznych filmów nigdy nie dubbingowała obsada aktorów. Był jeden człowiek. Lektor czytał wszystkie kwestie, płasko i niewzruszenie, ponad ściszonym oryginałem. Stallone, Streep, kosmici, dzieci: jeden głos. Ten styl to szeptanka. Obcokrajowcy słyszą zepsuty telewizor. My słyszymy dom.",
+    "body2": "Mati Staniszewski i Piotr Dąbkowski wychowali się na tym głosie i po części dlatego założyli ElevenLabs. Chcieli, żeby maszyny mówiły każdym językiem porządnie. W 2026 ich firma została wyceniona na 22 miliardy dolarów, kilka tygodni po inwestycji polskiego rządu.",
+    "body3": "Ta strona domyka pętlę: technologia, którą zainspirował lektor, czyta teraz jak on. Każdy klip jest transkrybowany przez scribe_v2, tłumaczony na płaski lektorski rejestr przez LLM, czytany jednym zaprojektowanym głosem w multilingual v2 i miksowany nad ściszonym oryginałem z autentycznym opóźnieniem od 600 do 900 ms. Lektor zawsze zaczyna później. Na tym polega rzemiosło.",
+    "body4": "Nie sklonowano głosu żadnego prawdziwego lektora. Ani Knapika, ani Gudowskiego, nikogo. Ten głos zaprojektowano od zera: archetyp, nie osoba. Jestem Polakiem, więc sprawdziłem dwa razy.",
     "credits": "Zbudował Radek · velvetshark.com"
   },
   "powiedz": {
     "title": "Powiedz to jak lektor",
-    "hint": "Wpisz cokolwiek, w dowolnym języku — lektor przeczyta dokładnie to, co napiszesz, w tym samym języku, z zawodową obojętnością. Nic tu nie jest tłumaczone. Sprawdza się przy tweetach, groźbach i przysięgach małżeńskich.",
+    "hint": "Wpisz cokolwiek, w dowolnym języku, a lektor przeczyta dokładnie to, co napiszesz, ze swoją zawodową obojętnością. Nic tu nie jest tłumaczone. Sprawdza się przy tweetach, groźbach i przysięgach małżeńskich.",
     "placeholder": "np. Złożę mu propozycję nie do odrzucenia",
     "button": "Przeczytaj",
     "generating": "Lektor odchrząkuje…",
     "error": "Lektor odmawia. Spróbuj za chwilę.",
-    "tooLong": "Maksymalnie {max} znaków — lektor to zajęty człowiek."
+    "tooLong": "Maksymalnie {max} znaków. Lektor to zajęty człowiek."
   }
 }

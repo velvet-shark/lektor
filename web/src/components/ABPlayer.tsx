@@ -102,19 +102,16 @@ export default function ABPlayer({
     if (!l) return;
     if (l.paused) {
       for (const video of [l, f]) {
-        if (video && video.networkState === 0) {
-          video.preload = "auto";
-          video.load();
-        }
+        if (video) video.preload = "auto";
       }
       if (f) f.currentTime = l.currentTime;
       try {
         await l.play();
+        setPlaying(true);
         if (f) {
           f.currentTime = l.currentTime;
-          await f.play();
+          void f.play().catch(() => {});
         }
-        setPlaying(true);
       } catch {
         l.pause();
         f?.pause();

@@ -30,7 +30,7 @@ export async function generateMetadata({
     description,
     alternates: localizedAlternates(locale, `/clip/${id}`),
     openGraph: {
-      title: `${title} — The Lektor`,
+      title: `${title} · The Lektor`,
       description,
       url: path,
       videos: [{ url: videoUrl, type: "video/mp4", width: 1280, height: 720 }],
@@ -38,7 +38,7 @@ export async function generateMetadata({
     },
     twitter: {
       card: "player",
-      title: `${title} — The Lektor`,
+      title: `${title} · The Lektor`,
       description,
       images: [posterUrl],
       players: [{ playerUrl, streamUrl: videoUrl, width: 1280, height: 720 }],
