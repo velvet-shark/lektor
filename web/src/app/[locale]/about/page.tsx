@@ -10,15 +10,20 @@ export default async function About({
   const t = await getTranslations("about");
 
   return (
-    <main className="mx-auto max-w-2xl px-5 py-16">
-      <h1 className="display text-3xl leading-tight sm:text-4xl">{t("title")}</h1>
-      <div className="mt-8 space-y-6 leading-relaxed text-paper/90">
-        <p>{t("body1")}</p>
-        <p>{t("body2")}</p>
-        <p>{t("body3")}</p>
-        <p className="border-l-2 border-pl-red pl-4 text-paper-dim">{t("body4")}</p>
+    <div className="mx-auto max-w-[66ch] pt-4">
+      <h1 className="tt-row tt-row-1 tt-bar bg-tt-blue font-bold text-tt-yellow">
+        {t("title")}
+      </h1>
+      <div className="mt-6 space-y-5 text-[0.95em] leading-relaxed text-tt-white">
+        <p className="tt-row tt-row-2">{t("body1")}</p>
+        <p className="tt-row tt-row-3">{t("body2")}</p>
+        <p className="tt-row tt-row-4 text-tt-cyan">{t("body3")}</p>
+        <p className="tt-row tt-row-5 tt-bar bg-tt-white text-tt-black">
+          {t("body4")}
+        </p>
       </div>
-      <p className="mono mt-12 text-xs text-paper-dim">{t("credits")}</p>
-    </main>
+      <div className="tt-mosaic-thin mt-8 text-tt-magenta" aria-hidden />
+      <p className="mt-3 text-[0.75em] text-tt-dim">{t("credits")}</p>
+    </div>
   );
 }

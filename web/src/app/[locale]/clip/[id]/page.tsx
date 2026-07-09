@@ -52,30 +52,36 @@ export default async function ClipPage({
   const pl = locale === "pl";
 
   return (
-    <main className="mx-auto max-w-3xl px-5 py-12">
-      <h1 className="display text-3xl">{pl ? clip.titlePl : clip.titleEn}</h1>
-      <p className="mt-1 text-sm text-paper-dim">{pl ? clip.blurbPl : clip.blurbEn}</p>
+    <div className="mx-auto max-w-[72ch] pt-4">
+      <h1 className="tt-row tt-row-1 tt-bar bg-tt-blue font-bold uppercase text-tt-yellow">
+        {pl ? clip.titlePl : clip.titleEn}
+      </h1>
+      <p className="tt-row tt-row-2 mt-2 text-[0.85em] text-tt-white">
+        {pl ? clip.blurbPl : clip.blurbEn}
+      </p>
       <ABPlayer
-        className="mt-8"
+        className="tt-row tt-row-3 mt-5"
         originalUrl={clip.originalUrl}
         lektorUrl={clip.lektorUrl}
         poster={clip.posterUrl}
         labels={{ original: t("original"), lektor: t("lektor") }}
       />
-      <p className="mono mt-6 text-xs text-paper-dim">
+      <p className="tt-row tt-row-4 mt-5 break-words text-[0.75em] text-tt-dim">
         {tc("license")}: {clip.license}
         {clip.licenseUrl && (
           <>
             {" · "}
-            <a href={clip.licenseUrl} className="underline">{clip.licenseUrl}</a>
+            <a href={clip.licenseUrl} className="underline hover:text-tt-cyan">
+              {clip.licenseUrl}
+            </a>
           </>
         )}
       </p>
-      <p className="mt-8">
-        <Link href="/" className="mono text-sm text-paper-dim hover:text-paper">
+      <p className="tt-row tt-row-5 mt-6">
+        <Link href="/" className="text-[0.85em] text-tt-cyan hover:bg-tt-cyan hover:text-tt-black">
           ← {tc("backHome")}
         </Link>
       </p>
-    </main>
+    </div>
   );
 }

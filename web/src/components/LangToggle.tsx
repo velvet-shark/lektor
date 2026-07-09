@@ -11,10 +11,10 @@ export default function LangToggle() {
   return (
     <button
       onClick={() => router.replace(pathname, { locale: other })}
-      className="mono rounded-full border border-paper/25 px-3 py-1 text-xs uppercase hover:border-paper/60"
+      className="bg-tt-white px-2 uppercase text-tt-black hover:bg-tt-yellow"
       aria-label={`switch language to ${other}`}
     >
-      {locale === "pl" ? "en" : "pl"}
+      {other}
     </button>
   );
 }

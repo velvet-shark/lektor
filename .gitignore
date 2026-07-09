@@ -13,3 +13,4 @@ gallery/sources/
 *.wav
 *.mp3
 !launch/**/*.mp4
+.claude/worktrees/

@@ -5,6 +5,7 @@ import { notFound } from "next/navigation";
 import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import LangToggle from "@/components/LangToggle";
+import Clock from "@/components/Clock";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -40,25 +41,61 @@ export default async function LocaleLayout({
     <html lang={locale}>
       <body className="scanlines">
         <NextIntlClientProvider>
-        <header className="mx-auto flex max-w-5xl items-center justify-between px-5 py-5">
-          <Link href="/" className="display text-lg tracking-tight">
-            <span className="text-pl-red">●</span> the lektor
-          </Link>
-          <nav className="mono flex items-center gap-5 text-sm text-paper-dim">
-            <Link href="/powiedz" className="hover:text-paper">{t("powiedz")}</Link>
-            <Link href="/about" className="hover:text-paper">{t("about")}</Link>
-            <LangToggle />
-          </nav>
-        </header>
-        {children}
-        <footer className="mx-auto mt-24 max-w-5xl space-y-2 border-t border-paper/10 px-5 py-10 text-center text-xs text-paper-dim">
-          <p>{t("footerHomage")} · <a className="underline hover:text-paper" href="https://velvetshark.com">velvetshark.com</a></p>
-          <p>{t("footerNoClone")}</p>
-          <p>
-            {t("footerUploads")} · {t("footerDmca")}:{" "}
-            <a className="underline hover:text-paper" href="mailto:dmca@velvetshark.com">dmca@velvetshark.com</a>
-          </p>
-        </footer>
+          {/* the captured page: everything lives inside this screen column */}
+          <div className="mx-auto flex min-h-dvh w-full max-w-[820px] flex-col px-2 sm:px-4">
+            {/* row 0: header strip — channel ident + the real clock */}
+            <header className="flex items-baseline justify-between gap-2 py-2 text-[0.8em]">
+              <Link href="/" className="whitespace-nowrap hover:text-tt-yellow">
+                <span className="text-tt-white">THE LEKTOR</span>{" "}
+                <span className="text-tt-cyan">{t("ident")}</span>
+              </Link>
+              <span className="flex items-baseline gap-3">
+                <Clock />
+                <LangToggle />
+              </span>
+            </header>
+
+            <main className="flex-1 pb-4">{children}</main>
+
+            {/* telegazeta page 888 — the credits bar every TV had */}
+            <footer className="mt-14 pb-2 text-[0.75em] leading-relaxed">
+              <div className="tt-bar bg-tt-blue text-center text-tt-white">
+                888 <span className="text-tt-yellow">{t("ident")}</span> 888
+              </div>
+              <div className="space-y-1 py-3">
+                <p className="text-tt-cyan">
+                  {t("footerHomage")} ·{" "}
+                  <a className="underline hover:text-tt-yellow" href="https://velvetshark.com">
+                    velvetshark.com
+                  </a>
+                </p>
+                <p className="text-tt-dim">{t("footerNoClone")}</p>
+                <p className="text-tt-dim">
+                  {t("footerUploads")} · {t("footerDmca")}:{" "}
+                  <a className="underline hover:text-tt-yellow" href="mailto:dmca@velvetshark.com">
+                    dmca@velvetshark.com
+                  </a>
+                </p>
+                <p className="pt-2 text-tt-dim">{t("endOfPage")}</p>
+              </div>
+            </footer>
+
+            {/* bottom row of the screen: the fastext keys are the nav */}
+            <nav className="fastext sticky bottom-0 z-40 -mx-2 sm:-mx-4" aria-label="fastext">
+              <Link href="/#upload" className="bg-tt-red">
+                {t("fastRed")}
+              </Link>
+              <Link href="/#gallery" className="bg-tt-green">
+                {t("fastGreen")}
+              </Link>
+              <Link href="/powiedz" className="bg-tt-yellow">
+                {t("fastYellow")}
+              </Link>
+              <Link href="/about" className="bg-tt-cyan">
+                {t("fastCyan")}
+              </Link>
+            </nav>
+          </div>
         </NextIntlClientProvider>
       </body>
     </html>

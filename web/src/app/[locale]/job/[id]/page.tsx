@@ -10,11 +10,11 @@ export default async function JobPage({
   setRequestLocale(locale);
   const t = await getTranslations("site");
   return (
-    <main className="mx-auto max-w-3xl px-5 py-12">
+    <div className="mx-auto max-w-[72ch] pt-6">
       <JobView
         jobId={id}
         labels={{ original: t("original"), lektor: t("lektor") }}
       />
-    </main>
+    </div>
   );
 }

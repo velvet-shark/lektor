@@ -13,7 +13,13 @@
     "footerUploads": "Uploads are deleted after 24 hours.",
     "footerDmca": "Content complaints",
     "about": "About",
-    "powiedz": "/say-it"
+    "powiedz": "say it",
+    "ident": "TELEGAZETA",
+    "fastRed": "lektor it",
+    "fastGreen": "listen",
+    "fastYellow": "say it",
+    "fastCyan": "about",
+    "endOfPage": "end of page. there is nothing further."
   },
   "upload": {
     "title": "Lektor your own clip",

@@ -135,9 +135,11 @@ export default function UploadSection() {
   };
 
   return (
-    <section id="upload" className="py-16">
-      <h2 className="display text-2xl sm:text-3xl">{t("title")}</h2>
-      <p className="mono mt-1 text-xs text-paper-dim">{t("hint")}</p>
+    <section id="upload" className="scroll-mt-4 pt-8">
+      <h2 className="tt-bar bg-tt-red font-bold uppercase text-tt-white">
+        {t("title")}
+      </h2>
+      <p className="mt-1 text-[0.75em] text-tt-cyan">{t("hint")}</p>
 
       {phase.k === "idle" || phase.k === "error" ? (
         <>
@@ -151,11 +153,15 @@ export default function UploadSection() {
               if (f) void handleFile(f);
             }}
             onClick={() => fileInput.current?.click()}
-            className={`mt-6 grid h-44 cursor-pointer place-items-center rounded-xl border-2 border-dashed transition-colors ${
-              drag ? "border-pl-red bg-pl-red/5" : "border-paper/20 hover:border-paper/40"
+            className={`mt-4 grid h-40 cursor-pointer place-items-center border-2 ${
+              drag
+                ? "border-tt-yellow bg-tt-blue"
+                : "border-tt-white hover:border-tt-yellow"
             }`}
           >
-            <span className="px-6 text-center text-sm text-paper-dim">{t("drop")}</span>
+            <span className="px-6 text-center text-[0.85em] text-tt-white">
+              <span className="tt-blink text-tt-yellow">▮</span> {t("drop")}
+            </span>
             <input
               ref={fileInput}
               type="file"
@@ -167,24 +173,30 @@ export default function UploadSection() {
               }}
             />
           </div>
-          <p className="mt-2 text-xs text-paper-dim">{t("consent")}</p>
+          <p className="mt-2 text-[0.75em] text-tt-dim">{t("consent")}</p>
           {phase.k === "error" && (
-            <p className="mt-3 rounded-lg border border-pl-red/40 bg-pl-red/10 px-4 py-3 text-sm">
+            <p className="tt-bar mt-3 bg-tt-red text-[0.85em] text-tt-white">
               {phase.msg}
             </p>
           )}
         </>
       ) : phase.k === "done" ? (
-        <div className="mt-6">
-          <p className="mb-4 text-sm">{t("done")}</p>
+        <div className="mt-4">
+          <p className="tt-bar mb-4 inline-block bg-tt-green text-[0.85em] text-tt-black">
+            {t("done")}
+          </p>
           <ABPlayer
             originalUrl={phase.originalUrl}
             lektorUrl={phase.resultUrl}
             labels={{ original: ts("original"), lektor: ts("lektor") }}
             className="max-w-2xl"
           />
-          <div className="mono mt-4 flex gap-4 text-sm">
-            <a href={phase.downloadUrl} download className="rounded-full bg-pl-red px-5 py-2 text-white">
+          <div className="mt-4 flex flex-wrap gap-3 text-[0.85em] uppercase">
+            <a
+              href={phase.downloadUrl}
+              download
+              className="bg-tt-red px-4 py-1.5 text-tt-white hover:bg-tt-yellow hover:text-tt-black"
+            >
               {t("download")}
             </a>
             <button
@@ -193,21 +205,21 @@ export default function UploadSection() {
                   `${location.origin}/job/${phase.jobId}`
                 );
               }}
-              className="rounded-full border border-paper/30 px-5 py-2 hover:border-paper/60"
+              className="cursor-pointer border border-tt-cyan px-4 py-1.5 text-tt-cyan hover:bg-tt-cyan hover:text-tt-black"
             >
               {t("share")}
             </button>
             <button
               onClick={() => setPhase({ k: "idle" })}
-              className="px-3 py-2 text-paper-dim hover:text-paper"
+              className="cursor-pointer px-2 py-1.5 text-tt-dim hover:text-tt-white"
             >
               {t("another")}
             </button>
           </div>
         </div>
       ) : (
-        <div className="mt-6 rounded-xl border border-paper/15 px-6 py-8 text-center">
-          <p className="pulse-dim mono text-sm">
+        <div className="mt-4 border-2 border-tt-white px-6 py-8 text-center">
+          <p className="tt-pulse text-[0.9em] text-tt-green">
             {phase.k === "uploading"
               ? t("uploading")
               : phase.k === "queued"
