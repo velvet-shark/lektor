@@ -3,18 +3,33 @@
 import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 
+/** Both languages visible, active one as a solid teletext block. */
 export default function LangToggle() {
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
-  const other = locale === "pl" ? "en" : "pl";
-  return (
+
+  const btn = (target: "en" | "pl") => (
     <button
-      onClick={() => router.replace(pathname, { locale: other })}
-      className="bg-tt-white px-2 uppercase text-tt-black hover:bg-tt-yellow"
-      aria-label={`switch language to ${other}`}
+      key={target}
+      onClick={() => locale !== target && router.replace(pathname, { locale: target })}
+      aria-pressed={locale === target}
+      aria-label={`language: ${target}`}
+      className={
+        "px-2 uppercase " +
+        (locale === target
+          ? "bg-tt-white text-tt-black"
+          : "cursor-pointer text-tt-cyan hover:bg-tt-cyan hover:text-tt-black")
+      }
     >
-      {other}
+      {target}
     </button>
+  );
+
+  return (
+    <span className="inline-flex border border-tt-dim">
+      {btn("en")}
+      {btn("pl")}
+    </span>
   );
 }

@@ -62,4 +62,4 @@ Env (see `worker/.env.example`): `ELEVENLABS_API_KEY`, `ANTHROPIC_API_KEY`,
 Gallery sources: Sintel (CC-BY 3.0), Elephants Dream (CC-BY 2.5), Apollo 11
 launch (PD, NASA), Universal Newsreel 1958 (PD). Details in `gallery/sources/SOURCES.md`.
 
-Part of **July of Voice** · by Radek · velvetshark.com
+By Radek · velvetshark.com

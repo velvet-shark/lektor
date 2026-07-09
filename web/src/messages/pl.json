@@ -56,7 +56,7 @@
     "body2": "Mati Staniszewski i Piotr Dąbkowski wychowali się na tym głosie i po części dlatego założyli ElevenLabs — z przekonania, że maszyny powinny mówić każdym językiem, pięknie. W 2026 firma została wyceniona na 22 miliardy dolarów, kilka tygodni po inwestycji polskiego rządu.",
     "body3": "The Lektor domyka pętlę: technologia, którą zainspirował lektor, odtwarza lektora. Każdy klip jest transkrybowany przez scribe_v2, tłumaczony na płaski lektorski rejestr przez LLM, czytany jednym zaprojektowanym głosem w eleven_v3 i miksowany nad ściszonym oryginałem z autentycznym opóźnieniem 600–900 ms.",
     "body4": "Nie sklonowano głosu żadnego prawdziwego lektora. Ten głos to projekt — archetyp, nie osoba. Ta granica ma znaczenie.",
-    "credits": "Zbudował Radek · część July of Voice"
+    "credits": "Zbudował Radek · velvetshark.com"
   },
   "powiedz": {
     "title": "Powiedz to jak lektor",

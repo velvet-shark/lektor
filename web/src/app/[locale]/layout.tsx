@@ -55,6 +55,22 @@ export default async function LocaleLayout({
               </span>
             </header>
 
+            {/* top row of the screen: the fastext keys are the nav */}
+            <nav className="fastext sticky top-0 z-40 -mx-2 sm:-mx-4" aria-label="fastext">
+              <Link href="/#upload" className="bg-tt-red">
+                {t("fastRed")}
+              </Link>
+              <Link href="/#gallery" className="bg-tt-green">
+                {t("fastGreen")}
+              </Link>
+              <Link href="/powiedz" className="bg-tt-yellow">
+                {t("fastYellow")}
+              </Link>
+              <Link href="/about" className="bg-tt-cyan">
+                {t("fastCyan")}
+              </Link>
+            </nav>
+
             <main className="flex-1 pb-4">{children}</main>
 
             {/* telegazeta page 888 — the credits bar every TV had */}
@@ -79,22 +95,6 @@ export default async function LocaleLayout({
                 <p className="pt-2 text-tt-dim">{t("endOfPage")}</p>
               </div>
             </footer>
-
-            {/* bottom row of the screen: the fastext keys are the nav */}
-            <nav className="fastext sticky bottom-0 z-40 -mx-2 sm:-mx-4" aria-label="fastext">
-              <Link href="/#upload" className="bg-tt-red">
-                {t("fastRed")}
-              </Link>
-              <Link href="/#gallery" className="bg-tt-green">
-                {t("fastGreen")}
-              </Link>
-              <Link href="/powiedz" className="bg-tt-yellow">
-                {t("fastYellow")}
-              </Link>
-              <Link href="/about" className="bg-tt-cyan">
-                {t("fastCyan")}
-              </Link>
-            </nav>
           </div>
         </NextIntlClientProvider>
       </body>
