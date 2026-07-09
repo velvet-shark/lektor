@@ -61,9 +61,6 @@ export default function JobView({
   if (job.status === "done" && job.result_url) {
     return (
       <div>
-        <p className="tt-bar mb-4 inline-block bg-tt-green text-[0.85em] text-tt-black">
-          {t("done")}
-        </p>
         <ABPlayer
           originalUrl={job.input_url ?? job.result_url}
           lektorUrl={job.result_url}
