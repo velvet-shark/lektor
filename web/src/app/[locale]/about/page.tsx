@@ -17,6 +17,7 @@ export async function generateMetadata({
       title: t("title"),
       description: t("body1"),
       url: `${locale === "pl" ? "/pl" : ""}/about`,
+      images: [{ url: "/og.png", width: 1200, height: 630 }],
     },
   };
 }

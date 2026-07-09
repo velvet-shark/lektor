@@ -14,7 +14,10 @@ export async function generateMetadata({
   const { locale } = await params;
   return {
     alternates: localizedAlternates(locale),
-    openGraph: { url: locale === "pl" ? "/pl" : "/" },
+    openGraph: {
+      url: locale === "pl" ? "/pl" : "/",
+      images: [{ url: "/og.png", width: 1200, height: 630 }],
+    },
   };
 }
 
