@@ -21,6 +21,7 @@ export default function ABPlayer({
   originalUrl,
   lektorUrl,
   poster,
+  durationS,
   labels,
   autoLektor = true,
   className = "",
@@ -28,6 +29,7 @@ export default function ABPlayer({
   originalUrl: string;
   lektorUrl: string;
   poster?: string;
+  durationS?: number;
   labels: { original: string; lektor: string };
   autoLektor?: boolean;
   className?: string;
@@ -39,7 +41,7 @@ export default function ABPlayer({
   );
   const [playing, setPlaying] = useState(false);
   const [time, setTime] = useState(0);
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(durationS ?? 0);
 
   const leader = () => (mode === "lektor" ? lekRef.current : origRef.current);
   const follower = () => (mode === "lektor" ? origRef.current : lekRef.current);
@@ -94,15 +96,30 @@ export default function ABPlayer({
     setMode(next);
   };
 
-  const playPause = () => {
+  const playPause = async () => {
     const l = leader();
     const f = follower();
     if (!l) return;
     if (l.paused) {
+      for (const video of [l, f]) {
+        if (video && video.networkState === 0) {
+          video.preload = "auto";
+          video.load();
+        }
+      }
       if (f) f.currentTime = l.currentTime;
-      void l.play();
-      void f?.play();
-      setPlaying(true);
+      try {
+        await l.play();
+        if (f) {
+          f.currentTime = l.currentTime;
+          await f.play();
+        }
+        setPlaying(true);
+      } catch {
+        l.pause();
+        f?.pause();
+        setPlaying(false);
+      }
     } else {
       l.pause();
       f?.pause();
@@ -115,7 +132,7 @@ export default function ABPlayer({
       "absolute inset-0 h-full w-full object-contain transition-opacity duration-100 " +
       (mode === which ? "opacity-100" : "opacity-0"),
     playsInline: true,
-    preload: "auto" as const,
+    preload: durationS ? ("none" as const) : ("metadata" as const),
     poster,
     muted: mode !== which,
     onClick: playPause,

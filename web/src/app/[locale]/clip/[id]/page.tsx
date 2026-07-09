@@ -72,6 +72,7 @@ export default async function ClipPage({
         originalUrl={clip.originalUrl}
         lektorUrl={clip.lektorUrl}
         poster={clip.posterUrl}
+        durationS={clip.durationS}
         labels={{ original: t("original"), lektor: t("lektor") }}
       />
       <p className="tt-row tt-row-4 mt-5 break-words text-[0.75em] text-tt-dim">

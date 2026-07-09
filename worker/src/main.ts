@@ -7,7 +7,15 @@ import { join, dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import { runPipeline } from "@lektor/pipeline";
 import { getPool, closePool, type JobRow } from "./db.js";
-import { getObjectToFile, putObjectFromFile, publicUrl } from "./storage.js";
+import {
+  getObjectToFile,
+  putObjectFromFile,
+  publicUrl,
+  objectSize,
+  deleteObject,
+} from "./storage.js";
+
+const MAX_INPUT_BYTES = 150 * 1024 * 1024;
 import { probeFile, validateInput } from "./validate.js";
 import { runCleanupOnce } from "./cleanup.js";
 import { recoverStaleJobs, requeueActiveJobs } from "./queue.js";
@@ -43,6 +51,7 @@ export function statusForProgress(state: string): string | null {
 function friendlyError(err: unknown): string {
   const msg = err instanceof Error ? err.message : String(err);
   if (msg.includes("NO_SPEECH")) return "No speech detected in this clip";
+  if (msg.startsWith("File is too large")) return msg;
   return "Something went wrong while processing this clip";
 }
 
@@ -75,6 +84,15 @@ async function claimJobs(limit: number): Promise<JobRow[]> {
 async function fetchInput(job: JobRow, dest: string): Promise<void> {
   const inputKey = job.meta?.input_key;
   if (typeof inputKey === "string" && inputKey.length > 0) {
+    // presigned PUTs can't cap actual bytes: check the stored size BEFORE
+    // downloading, and evict oversized objects so they stop costing storage.
+    const bytes = await objectSize(inputKey);
+    if (bytes !== null && bytes > MAX_INPUT_BYTES) {
+      await deleteObject(inputKey).catch(() => {});
+      throw new Error(
+        `File is too large: ${Math.round(bytes / 1024 / 1024)}MB (max 150MB)`
+      );
+    }
     await getObjectToFile(inputKey, dest);
     return;
   }

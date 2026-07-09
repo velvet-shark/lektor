@@ -60,6 +60,7 @@ export default async function Home({
                 originalUrl={clip.originalUrl}
                 lektorUrl={clip.lektorUrl}
                 poster={clip.posterUrl}
+                durationS={clip.durationS}
                 labels={{ original: t("original"), lektor: t("lektor") }}
               />
               <div className="mt-2 flex items-baseline justify-between gap-3">

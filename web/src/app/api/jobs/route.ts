@@ -1,10 +1,11 @@
 import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@/lib/db";
-import { presignGet } from "@/lib/storage";
+import { presignGet, objectSize, deleteObject } from "@/lib/storage";
 import { requestFingerprint } from "@/lib/rate-limit";
 
 const UPLOAD_KEY = /^uploads\/[0-9a-f-]{36}\.(mp4|mov|webm)$/;
 const MAX_SECONDS = 90;
+const MAX_BYTES = 150 * 1024 * 1024;
 const configuredLimit = Number(process.env.MAX_JOBS_PER_HOUR ?? 5);
 const MAX_JOBS_PER_HOUR =
   Number.isFinite(configuredLimit) && configuredLimit > 0 ? configuredLimit : 5;
@@ -45,6 +46,16 @@ export async function POST(req: NextRequest) {
           )
         : 1;
     return NextResponse.json({ id, position, reused: true });
+  }
+
+  // presigned PUTs can't cap actual bytes — verify what really landed in the
+  // bucket, and evict oversized objects immediately.
+  const storedBytes = await objectSize(key);
+  if (storedBytes === null)
+    return NextResponse.json({ error: "upload not found" }, { status: 400 });
+  if (storedBytes > MAX_BYTES) {
+    await deleteObject(key).catch(() => {});
+    return NextResponse.json({ error: "file too large" }, { status: 400 });
   }
 
   const clientId = requestFingerprint(req.headers);

@@ -1,4 +1,10 @@
-import { S3Client, PutObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import {
+  S3Client,
+  PutObjectCommand,
+  GetObjectCommand,
+  HeadObjectCommand,
+  DeleteObjectCommand,
+} from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
 function r2() {
@@ -30,6 +36,22 @@ export async function presignGet(key: string, expiresIn = 3600 * 24): Promise<st
     new GetObjectCommand({ Bucket: bucket(), Key: key }),
     { expiresIn }
   );
+}
+
+/** Actual stored size in bytes, or null if the object doesn't exist. */
+export async function objectSize(key: string): Promise<number | null> {
+  try {
+    const head = await r2().send(
+      new HeadObjectCommand({ Bucket: bucket(), Key: key })
+    );
+    return head.ContentLength ?? null;
+  } catch {
+    return null;
+  }
+}
+
+export async function deleteObject(key: string): Promise<void> {
+  await r2().send(new DeleteObjectCommand({ Bucket: bucket(), Key: key }));
 }
 
 /** Public URL for objects when R2_PUBLIC_BASE (custom domain / r2.dev) is configured. */
