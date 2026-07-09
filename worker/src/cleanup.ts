@@ -44,6 +44,33 @@ export interface CleanupResult {
   failedKeys: string[];
 }
 
+export interface StoredUpload {
+  key: string;
+  lastModified: Date | null;
+}
+
+/** Delete uploads that were presigned but never turned into a job. */
+export async function cleanupExpiredUploads(
+  uploads: StoredUpload[],
+  deleteObject: (key: string) => Promise<void>,
+  now = new Date(),
+  log: (msg: string) => void = (msg) => console.log(msg)
+): Promise<{ deletedKeys: string[]; failedKeys: string[] }> {
+  const result = { deletedKeys: [] as string[], failedKeys: [] as string[] };
+  for (const upload of uploads) {
+    if (!upload.lastModified || !isExpired(upload.lastModified, now)) continue;
+    try {
+      await deleteObject(upload.key);
+      result.deletedKeys.push(upload.key);
+      log(`[cleanup] deleted expired upload ${upload.key}`);
+    } catch (err) {
+      result.failedKeys.push(upload.key);
+      log(`[cleanup] FAILED to delete expired upload ${upload.key}: ${(err as Error).message}`);
+    }
+  }
+  return result;
+}
+
 const SELECT_EXPIRED = `
   select id, meta from jobs
   where created_at < now() - interval '${JOB_TTL_HOURS} hours'
@@ -81,6 +108,13 @@ export async function runCleanup(deps: CleanupDeps): Promise<CleanupResult> {
         log(`[cleanup] FAILED to delete ${key} (job ${job.id}): ${(err as Error).message}`);
       }
     }
+    const jobFailures = result.failedKeys.filter((key) => keysForJob(job).includes(key));
+    if (jobFailures.length > 0) {
+      log(
+        `[cleanup] keeping job ${job.id} eligible for retry after ${jobFailures.length} deletion failure(s)`
+      );
+      continue;
+    }
     await deps.query(SCRUB_JOB, [job.id]);
     result.jobs++;
     log(`[cleanup] scrubbed job ${job.id} (input_url/result_url cleared, meta.deleted=true)`);
@@ -95,12 +129,21 @@ export async function runCleanup(deps: CleanupDeps): Promise<CleanupResult> {
 /** Cleanup against the real DB + R2 — used by main.ts and the CLI entry below. */
 export async function runCleanupOnce(): Promise<CleanupResult> {
   const { getPool } = await import("./db.js");
-  const { deleteObject } = await import("./storage.js");
+  const { deleteObject, listObjects } = await import("./storage.js");
   const pool = getPool();
-  return runCleanup({
+  const jobs = await runCleanup({
     query: (sql, params) => pool.query(sql, params as unknown[] | undefined),
     deleteObject,
   });
+  const uploads = await cleanupExpiredUploads(
+    await listObjects("uploads/"),
+    deleteObject
+  );
+  return {
+    jobs: jobs.jobs,
+    deletedKeys: [...jobs.deletedKeys, ...uploads.deletedKeys],
+    failedKeys: [...jobs.failedKeys, ...uploads.failedKeys],
+  };
 }
 
 // standalone entry: `tsx src/cleanup.ts`

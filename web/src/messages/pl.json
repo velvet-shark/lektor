@@ -8,7 +8,7 @@
     "galleryHint": "Włącz klip i przełącz w trakcie — ten sam moment, dwa światy.",
     "original": "Oryginał",
     "lektor": "Lektor",
-    "footerHomage": "Hołd dla polskiego lektora · Zbudowane na ElevenLabs scribe_v2 + eleven_v3",
+    "footerHomage": "Hołd dla polskiego lektora · Zbudowane na ElevenLabs scribe_v2 + multilingual v2",
     "footerNoClone": "Przy tworzeniu tej strony nie sklonowano żadnego lektora.",
     "footerUploads": "Przesłane pliki znikają po 24 godzinach.",
     "footerDmca": "Zgłoszenia naruszeń",
@@ -39,10 +39,12 @@
       "mixing": "Ściszamy oryginał, z szacunkiem…"
     },
     "failed": "Nie wyszło: {reason}",
+    "storageUnavailable": "Wysyłanie plików jest chwilowo niedostępne. Spróbuj ponownie za moment.",
     "noSpeech": "W tym klipie nie ma mowy — lektor musi mieć co czytać.",
     "done": "Gotowe. Oto Twój lektor.",
     "download": "Pobierz",
     "share": "Udostępnij klip",
+    "copied": "Link skopiowany",
     "another": "Jeszcze jeden"
   },
   "clip": {
@@ -54,7 +56,7 @@
     "title": "Głos, na którym wychowała się cała Polska",
     "body1": "W Polsce zagranicznych filmów nigdy nie dubbingowała obsada aktorów. Jeden człowiek — lektor — czytał wszystkie kwestie, płasko i niewzruszenie, ponad ściszonym oryginałem. Stallone, Streep, kosmici, dzieci: jeden głos. Ten styl to szeptanka. Dla obcokrajowców brzmi jak pomyłka. Dla nas — jak dom.",
     "body2": "Mati Staniszewski i Piotr Dąbkowski wychowali się na tym głosie i po części dlatego założyli ElevenLabs — z przekonania, że maszyny powinny mówić każdym językiem, pięknie. W 2026 firma została wyceniona na 22 miliardy dolarów, kilka tygodni po inwestycji polskiego rządu.",
-    "body3": "The Lektor domyka pętlę: technologia, którą zainspirował lektor, odtwarza lektora. Każdy klip jest transkrybowany przez scribe_v2, tłumaczony na płaski lektorski rejestr przez LLM, czytany jednym zaprojektowanym głosem w eleven_v3 i miksowany nad ściszonym oryginałem z autentycznym opóźnieniem 600–900 ms.",
+    "body3": "The Lektor domyka pętlę: technologia, którą zainspirował lektor, odtwarza lektora. Każdy klip jest transkrybowany przez scribe_v2, tłumaczony na płaski lektorski rejestr przez LLM, czytany jednym zaprojektowanym głosem w multilingual v2 i miksowany nad ściszonym oryginałem z autentycznym opóźnieniem 600–900 ms.",
     "body4": "Nie sklonowano głosu żadnego prawdziwego lektora. Ten głos to projekt — archetyp, nie osoba. Ta granica ma znaczenie.",
     "credits": "Zbudował Radek · velvetshark.com"
   },

@@ -1,8 +1,22 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { GALLERY } from "@/lib/clips";
 import ABPlayer from "@/components/ABPlayer";
 import UploadSection from "@/components/UploadSection";
 import { Link } from "@/i18n/navigation";
+import { localizedAlternates } from "@/lib/site-url";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  return {
+    alternates: localizedAlternates(locale),
+    openGraph: { url: locale === "pl" ? "/pl" : "/" },
+  };
+}
 
 export default async function Home({
   params,

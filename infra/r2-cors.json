@@ -1,0 +1,13 @@
+[
+  {
+    "AllowedOrigins": [
+      "https://lektor-velvetsharks-projects.vercel.app",
+      "https://lektor.velvetshark.com",
+      "http://localhost:3000"
+    ],
+    "AllowedMethods": ["PUT"],
+    "AllowedHeaders": ["Content-Type"],
+    "ExposeHeaders": ["ETag"],
+    "MaxAgeSeconds": 3600
+  }
+]

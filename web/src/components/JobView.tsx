@@ -26,14 +26,17 @@ export default function JobView({
 
   useEffect(() => {
     let stop = false;
+    const controller = new AbortController();
     const load = async () => {
-      const res = await fetch(`/api/jobs/${jobId}`);
+      const res = await fetch(`/api/jobs/${jobId}`, { signal: controller.signal });
+      if (stop) return true;
       if (res.status === 404) {
         setMissing(true);
         return true;
       }
       if (res.ok) {
         const j = (await res.json()) as JobJson;
+        if (stop) return true;
         setJob(j);
         return j.status === "done" || j.status === "error";
       }
@@ -47,6 +50,7 @@ export default function JobView({
     void tick();
     return () => {
       stop = true;
+      controller.abort();
     };
   }, [jobId]);
 

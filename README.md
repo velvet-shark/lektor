@@ -12,7 +12,7 @@ style every Pole grew up with, and the origin story of ElevenLabs itself.
 video ─▶ scribe_v2 (word timestamps + diarization)
       ─▶ merge words → utterances (<600ms gaps, same speaker)
       ─▶ Claude translation, lektor register (CONDENSE 20–30%)
-      ─▶ eleven_v3 TTS per segment (previous_text/next_text continuity)
+      ─▶ eleven_multilingual_v2 TTS per segment (previous_text/next_text continuity)
       ─▶ timing scheduler (the craft — see below)
       ─▶ ffmpeg mix: duck original to 30%, 180ms ramps, loudnorm, -c:v copy
 ```
@@ -50,6 +50,19 @@ Env (see `worker/.env.example`): `ELEVENLABS_API_KEY`, `ANTHROPIC_API_KEY`,
 `DATABASE_URL`, `CLOUDFLARE_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
 `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_PUBLIC_BASE`, `LEKTOR_VOICE_ID`.
 
+### Production upload prerequisite
+
+Uploads go directly from the browser to R2, so the bucket must have a CORS
+policy before the upload UI can work. Apply [`infra/r2-cors.json`](infra/r2-cors.json)
+to the `lektor` bucket and keep every deployed web origin in `AllowedOrigins`.
+The policy deliberately permits only `PUT` with a `Content-Type` header.
+
+Before a launch, request a fresh `/api/upload` URL and preflight it from the
+production origin. A successful preflight returns `204` and an
+`Access-Control-Allow-Origin` header for that exact origin. A `403` response
+containing `CORS not configured for this bucket` means uploads are broken even
+if the rest of the site renders correctly.
+
 ## Hard rules
 
 - **No real lektor's voice is ever cloned** (Knapik, Gudowski, Borowiec, anyone). Voice Design only.
@@ -59,7 +72,9 @@ Env (see `worker/.env.example`): `ELEVENLABS_API_KEY`, `ANTHROPIC_API_KEY`,
   replacement is the opposite aesthetic; the single-voice overlay is the point.
 - Uploads auto-delete after 24h.
 
-Gallery sources: Sintel (CC-BY 3.0), Elephants Dream (CC-BY 2.5), Apollo 11
-launch (PD, NASA), Universal Newsreel 1958 (PD). Details in `gallery/sources/SOURCES.md`.
+Gallery sources: Charade (1963), His Girl Friday (1940), McLintock! (1963),
+Superman (1941), The Fast and the Furious (1955), and Radek's own clip. The
+five films are public domain; title-by-title rationale lives with the local
+gallery source assets.
 
 By Radek · velvetshark.com

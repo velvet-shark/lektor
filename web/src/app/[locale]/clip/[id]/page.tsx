@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { GALLERY, getClip } from "@/lib/clips";
 import ABPlayer from "@/components/ABPlayer";
 import { Link } from "@/i18n/navigation";
+import { getSiteUrl, localizedAlternates } from "@/lib/site-url";
 
 export function generateStaticParams() {
   return GALLERY.map((c) => ({ id: c.id }));
@@ -19,21 +20,28 @@ export async function generateMetadata({
   if (!clip) return {};
   const title = locale === "pl" ? clip.titlePl : clip.titleEn;
   const description = locale === "pl" ? clip.blurbPl : clip.blurbEn;
-  const base = process.env.NEXT_PUBLIC_SITE_URL ?? "https://lektor.velvetshark.com";
+  const site = getSiteUrl();
+  const path = `${locale === "pl" ? "/pl" : ""}/clip/${id}`;
+  const videoUrl = new URL(clip.lektorUrl, site);
+  const posterUrl = new URL(clip.posterUrl, site);
+  const playerUrl = new URL(path, site);
   return {
     title,
     description,
+    alternates: localizedAlternates(locale, `/clip/${id}`),
     openGraph: {
       title: `${title} — The Lektor`,
       description,
-      videos: [{ url: `${base}${clip.lektorUrl}`, type: "video/mp4" }],
-      images: [{ url: `${base}${clip.posterUrl}` }],
+      url: path,
+      videos: [{ url: videoUrl, type: "video/mp4", width: 1280, height: 720 }],
+      images: [{ url: posterUrl, width: 1280, height: 720 }],
     },
     twitter: {
       card: "player",
       title: `${title} — The Lektor`,
       description,
-      images: [`${base}${clip.posterUrl}`],
+      images: [posterUrl],
+      players: [{ playerUrl, streamUrl: videoUrl, width: 1280, height: 720 }],
     },
   };
 }

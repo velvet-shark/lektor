@@ -16,6 +16,15 @@ export async function POST(req: NextRequest) {
   if (!apiKey || !voiceId)
     return NextResponse.json({ error: "not configured" }, { status: 503 });
 
+  const body = await req.json().catch(() => null);
+  if (!body || typeof body !== "object")
+    return NextResponse.json({ error: "invalid request" }, { status: 400 });
+  const { text } = body as Record<string, unknown>;
+  if (typeof text !== "string" || !text.trim())
+    return NextResponse.json({ error: "no text" }, { status: 400 });
+  if (text.length > MAX_CHARS)
+    return NextResponse.json({ error: "too long" }, { status: 400 });
+
   const ip = req.headers.get("x-forwarded-for")?.split(",")[0] ?? "?";
   const now = Date.now();
   const recent = (hits.get(ip) ?? []).filter((t) => now - t < WINDOW_MS);
@@ -23,24 +32,24 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "rate limited" }, { status: 429 });
   hits.set(ip, [...recent, now]);
 
-  const { text } = await req.json();
-  if (typeof text !== "string" || !text.trim())
-    return NextResponse.json({ error: "no text" }, { status: 400 });
-  if (text.length > MAX_CHARS)
-    return NextResponse.json({ error: "too long" }, { status: 400 });
-
-  const res = await fetch(
-    `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`,
-    {
-      method: "POST",
-      headers: { "xi-api-key": apiKey, "Content-Type": "application/json" },
-      body: JSON.stringify({
-        text,
-        model_id: "eleven_flash_v2_5",
-        voice_settings: { stability: 0.9, similarity_boost: 0.75, style: 0 },
-      }),
-    }
-  );
+  let res: Response;
+  try {
+    res = await fetch(
+      `https://api.elevenlabs.io/v1/text-to-speech/${voiceId}?output_format=mp3_44100_128`,
+      {
+        method: "POST",
+        headers: { "xi-api-key": apiKey, "Content-Type": "application/json" },
+        body: JSON.stringify({
+          text,
+          model_id: "eleven_flash_v2_5",
+          voice_settings: { stability: 0.9, similarity_boost: 0.75, style: 0 },
+        }),
+        signal: AbortSignal.timeout(30_000),
+      }
+    );
+  } catch {
+    return NextResponse.json({ error: "tts unavailable" }, { status: 504 });
+  }
   if (!res.ok)
     return NextResponse.json({ error: "tts failed" }, { status: 502 });
 

@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import { Link } from "@/i18n/navigation";
 import LangToggle from "@/components/LangToggle";
 import Clock from "@/components/Clock";
+import { getSiteUrl } from "@/lib/site-url";
 import "../globals.css";
 
 export function generateStaticParams() {
@@ -19,9 +20,26 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params;
   const t = await getTranslations({ locale, namespace: "site" });
+  const site = getSiteUrl();
   return {
+    metadataBase: site,
     title: { default: `${t("title")} — ${t("tagline")}`, template: "%s — The Lektor" },
     description: t("heroLead"),
+    robots: { index: true, follow: true },
+    openGraph: {
+      type: "website",
+      siteName: t("title"),
+      title: `${t("title")} — ${t("tagline")}`,
+      description: t("heroLead"),
+      locale: locale === "pl" ? "pl_PL" : "en_US",
+      images: [{ url: "/og.png", width: 1200, height: 630, alt: t("title") }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${t("title")} — ${t("tagline")}`,
+      description: t("heroLead"),
+      images: ["/og.png"],
+    },
   };
 }
 

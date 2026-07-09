@@ -58,7 +58,7 @@ export default function ABPlayer({
       }
     }, 250);
     return () => clearInterval(id);
-  });
+  }, [mode]);
 
   const seek = (e: React.MouseEvent<HTMLDivElement>) => {
     const l = leader();
@@ -69,6 +69,16 @@ export default function ABPlayer({
     l.currentTime = t;
     if (f) f.currentTime = t;
     setTime(t);
+  };
+
+  const seekBy = (deltaS: number) => {
+    const l = leader();
+    const f = follower();
+    if (!l || !duration) return;
+    const next = Math.min(duration, Math.max(0, l.currentTime + deltaS));
+    l.currentTime = next;
+    if (f) f.currentTime = next;
+    setTime(next);
   };
 
   const toggle = (next: "original" | "lektor") => {
@@ -110,6 +120,10 @@ export default function ABPlayer({
     muted: mode !== which,
     onClick: playPause,
     onEnded: () => setPlaying(false),
+    onLoadedMetadata: (e: React.SyntheticEvent<HTMLVideoElement>) => {
+      const d = e.currentTarget.duration;
+      if (isFinite(d)) setDuration(d);
+    },
   });
 
   return (
@@ -146,10 +160,18 @@ export default function ABPlayer({
               onClick={seek}
               className="h-3 w-full cursor-pointer bg-tt-black pt-1"
               role="slider"
+              tabIndex={0}
               aria-label="seek"
               aria-valuemin={0}
               aria-valuemax={Math.round(duration)}
               aria-valuenow={Math.round(time)}
+              aria-valuetext={`${fmt(time)} / ${fmt(duration)}`}
+              onKeyDown={(e) => {
+                if (e.key === "ArrowLeft" || e.key === "ArrowRight") {
+                  e.preventDefault();
+                  seekBy(e.key === "ArrowLeft" ? -5 : 5);
+                }
+              }}
             >
               <div className="relative h-2 w-full bg-tt-blue">
                 <div

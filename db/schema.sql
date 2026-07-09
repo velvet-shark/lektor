@@ -16,6 +16,12 @@ create table if not exists jobs (
 );
 
 create index if not exists jobs_status_created_idx on jobs (status, created_at);
+create index if not exists jobs_input_key_idx
+  on jobs ((meta->>'input_key'))
+  where meta ? 'input_key';
+create index if not exists jobs_client_created_idx
+  on jobs ((meta->>'client_id'), created_at)
+  where meta ? 'client_id';
 
 -- pre-rendered gallery entries
 create table if not exists clips (

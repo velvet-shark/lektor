@@ -1,7 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import ABPlayer from "./ABPlayer";
 
 type Phase =
@@ -25,8 +25,10 @@ const TYPES = ["video/mp4", "video/quicktime", "video/webm"];
 export default function UploadSection() {
   const t = useTranslations("upload");
   const ts = useTranslations("site");
+  const locale = useLocale();
   const [phase, setPhase] = useState<Phase>({ k: "idle" });
   const [drag, setDrag] = useState(false);
+  const [shareCopied, setShareCopied] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
 
   const fail = (msg: string) => setPhase({ k: "error", msg });
@@ -34,13 +36,17 @@ export default function UploadSection() {
   const probeDuration = (file: File) =>
     new Promise<number>((resolveDur, reject) => {
       const v = document.createElement("video");
+      const url = URL.createObjectURL(file);
       v.preload = "metadata";
       v.onloadedmetadata = () => {
-        URL.revokeObjectURL(v.src);
+        URL.revokeObjectURL(url);
         resolveDur(v.duration);
       };
-      v.onerror = () => reject(new Error("unreadable"));
-      v.src = URL.createObjectURL(file);
+      v.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error("unreadable"));
+      };
+      v.src = url;
     });
 
   const handleFile = useCallback(async (file: File) => {
@@ -68,11 +74,18 @@ export default function UploadSection() {
       if (!presign.ok) throw new Error(await presign.text());
       const { putUrl, key } = await presign.json();
 
-      const put = await fetch(putUrl, {
-        method: "PUT",
-        headers: { "Content-Type": file.type },
-        body: file,
-      });
+      let put: Response;
+      try {
+        put = await fetch(putUrl, {
+          method: "PUT",
+          headers: { "Content-Type": file.type },
+          body: file,
+        });
+      } catch {
+        // Browser-level failures here are usually storage CORS or connectivity.
+        // Do not show visitors the opaque fetch error that browsers expose.
+        throw new Error(t("storageUnavailable"));
+      }
       if (!put.ok) throw new Error(`upload ${put.status}`);
 
       const jobRes = await fetch("/api/jobs", {
@@ -93,12 +106,17 @@ export default function UploadSection() {
     phase.k === "queued" || phase.k === "working" ? phase.jobId : null;
   useEffect(() => {
     if (!jobId) return;
-    const id = setInterval(async () => {
+    let stopped = false;
+    let timer: ReturnType<typeof setTimeout> | undefined;
+    const poll = async () => {
+      let finished = false;
       try {
         const res = await fetch(`/api/jobs/${jobId}`);
-        if (!res.ok) return;
+        if (!res.ok) throw new Error(String(res.status));
         const j = await res.json();
+        if (stopped) return;
         if (j.status === "done") {
+          finished = true;
           setPhase({
             k: "done",
             jobId,
@@ -107,6 +125,7 @@ export default function UploadSection() {
             originalUrl: j.input_url,
           });
         } else if (j.status === "error") {
+          finished = true;
           fail(
             j.error === "NO_SPEECH" || /no speech/i.test(j.error ?? "")
               ? t("noSpeech")
@@ -120,8 +139,13 @@ export default function UploadSection() {
       } catch {
         /* transient — keep polling */
       }
-    }, 2500);
-    return () => clearInterval(id);
+      if (!finished && !stopped) timer = setTimeout(poll, 2500);
+    };
+    void poll();
+    return () => {
+      stopped = true;
+      if (timer) clearTimeout(timer);
+    };
   }, [jobId, t]);
 
   const stateLabel = (s: string) => {
@@ -144,6 +168,8 @@ export default function UploadSection() {
       {phase.k === "idle" || phase.k === "error" ? (
         <>
           <div
+            role="button"
+            tabIndex={0}
             onDragOver={(e) => { e.preventDefault(); setDrag(true); }}
             onDragLeave={() => setDrag(false)}
             onDrop={(e) => {
@@ -153,6 +179,12 @@ export default function UploadSection() {
               if (f) void handleFile(f);
             }}
             onClick={() => fileInput.current?.click()}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                fileInput.current?.click();
+              }
+            }}
             className={`mt-4 grid h-40 cursor-pointer place-items-center border-2 ${
               drag
                 ? "border-tt-yellow bg-tt-blue"
@@ -202,15 +234,19 @@ export default function UploadSection() {
             <button
               onClick={() => {
                 void navigator.clipboard.writeText(
-                  `${location.origin}/job/${phase.jobId}`
-                );
+                  `${location.origin}${locale === "pl" ? "/pl" : ""}/job/${phase.jobId}`
+                ).then(() => setShareCopied(true));
               }}
               className="cursor-pointer border border-tt-cyan px-4 py-1.5 text-tt-cyan hover:bg-tt-cyan hover:text-tt-black"
             >
-              {t("share")}
+              {shareCopied ? t("copied") : t("share")}
             </button>
             <button
-              onClick={() => setPhase({ k: "idle" })}
+              onClick={() => {
+                setPhase({ k: "idle" });
+                setShareCopied(false);
+                if (fileInput.current) fileInput.current.value = "";
+              }}
               className="cursor-pointer px-2 py-1.5 text-tt-dim hover:text-tt-white"
             >
               {t("another")}

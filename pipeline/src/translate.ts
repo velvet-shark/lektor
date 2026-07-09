@@ -16,10 +16,11 @@ export const LEKTOR_SYSTEM_PROMPT = `You translate film dialogue into Polish for
 - Output JSON only: [{i, pl}] matching input segment indices.`;
 
 const MODEL = process.env.TRANSLATE_MODEL ?? "claude-sonnet-5";
+const newClient = () => new Anthropic({ timeout: 120_000, maxRetries: 2 });
 
 export async function translateUtterances(
   utterances: Utterance[],
-  client = new Anthropic()
+  client = newClient()
 ): Promise<TranslatedUtterance[]> {
   const input = utterances.map((u) => ({ i: u.i, text: u.text }));
   const res = await client.messages.create({
@@ -48,7 +49,7 @@ export async function translateUtterances(
 /** PRD §3.4 rule 2: second pass for segments flagged by the scheduler. */
 export async function recondense(
   lines: { i: number; pl: string }[],
-  client = new Anthropic()
+  client = newClient()
 ): Promise<Map<number, string>> {
   const res = await client.messages.create({
     model: MODEL,

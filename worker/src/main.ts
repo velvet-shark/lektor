@@ -10,6 +10,7 @@ import { getPool, closePool, type JobRow } from "./db.js";
 import { getObjectToFile, putObjectFromFile, publicUrl } from "./storage.js";
 import { probeFile, validateInput } from "./validate.js";
 import { runCleanupOnce } from "./cleanup.js";
+import { recoverStaleJobs, requeueActiveJobs } from "./queue.js";
 
 const exec = promisify(execFile);
 
@@ -209,11 +210,17 @@ function startHealthServer(): void {
   server.listen(PORT, () => console.log(`[health] listening on :${PORT}`));
 }
 
-function main(): void {
+async function main(): Promise<void> {
   voiceId(); // fail fast on missing config
   console.log(
     `[worker] starting: poll ${POLL_INTERVAL_MS}ms, max ${MAX_CONCURRENT} concurrent jobs`
   );
+  const recovered = await recoverStaleJobs((sql, params) =>
+    getPool().query(sql, params as unknown[] | undefined)
+  );
+  if (recovered.length > 0) {
+    console.log(`[worker] recovered ${recovered.length} stale job(s): ${recovered.join(", ")}`);
+  }
   startHealthServer();
 
   const pollTimer = setInterval(() => void tick(), POLL_INTERVAL_MS);
@@ -226,14 +233,33 @@ function main(): void {
   );
   void runCleanupOnce().catch((err) => console.error("[cleanup] failed:", err.message));
 
-  const shutdown = () => {
+  let shuttingDown = false;
+  const shutdown = async () => {
+    if (shuttingDown) return;
+    shuttingDown = true;
     console.log("[worker] shutting down");
     clearInterval(pollTimer);
     clearInterval(cleanupTimer);
-    void closePool().finally(() => process.exit(0));
+    try {
+      const requeued = await requeueActiveJobs(
+        (sql, params) => getPool().query(sql, params as unknown[] | undefined),
+        [...active]
+      );
+      if (requeued.length > 0) {
+        console.log(`[worker] requeued ${requeued.length} active job(s)`);
+      }
+    } catch (err) {
+      console.error("[worker] failed to requeue active jobs:", (err as Error).message);
+    } finally {
+      await closePool();
+      process.exit(0);
+    }
   };
-  process.on("SIGINT", shutdown);
-  process.on("SIGTERM", shutdown);
+  process.once("SIGINT", () => void shutdown());
+  process.once("SIGTERM", () => void shutdown());
 }
 
-main();
+void main().catch((err) => {
+  console.error("[worker] startup failed:", err);
+  process.exit(1);
+});

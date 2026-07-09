@@ -1,5 +1,10 @@
 import { describe, it, expect, vi } from "vitest";
-import { isExpired, keysForJob, runCleanup } from "../src/cleanup.js";
+import {
+  cleanupExpiredUploads,
+  isExpired,
+  keysForJob,
+  runCleanup,
+} from "../src/cleanup.js";
 
 describe("isExpired", () => {
   const now = new Date("2026-07-07T12:00:00Z");
@@ -77,7 +82,7 @@ describe("runCleanup", () => {
     expect(updates[0][0]).toContain("result_url = null");
   });
 
-  it("still scrubs the row when a delete fails, and reports the failure", async () => {
+  it("keeps a row eligible for retry when any object deletion fails", async () => {
     const query = makeQuery();
     const deleteObject = vi.fn(async (key: string) => {
       if (key === "results/job-1.mp4") throw new Error("boom");
@@ -85,11 +90,13 @@ describe("runCleanup", () => {
     const logs: string[] = [];
     const result = await runCleanup({ query, deleteObject, log: (m) => logs.push(m) });
 
-    expect(result.jobs).toBe(2);
+    expect(result.jobs).toBe(1);
     expect(result.failedKeys).toEqual(["results/job-1.mp4"]);
     expect(result.deletedKeys).toHaveLength(4);
     expect(logs.some((l) => l.includes("FAILED to delete results/job-1.mp4"))).toBe(true);
-    expect(logs.some((l) => l.includes("scrubbed job job-1"))).toBe(true);
+    expect(logs.some((l) => l.includes("eligible for retry"))).toBe(true);
+    const updates = query.mock.calls.filter(([sql]) => sql.includes("update jobs"));
+    expect(updates.map(([, params]) => params)).toEqual([["job-2"]]);
   });
 
   it("does nothing when no jobs are expired", async () => {
@@ -98,5 +105,37 @@ describe("runCleanup", () => {
     const result = await runCleanup({ query, deleteObject, log: () => {} });
     expect(result.jobs).toBe(0);
     expect(deleteObject).not.toHaveBeenCalled();
+  });
+});
+
+describe("cleanupExpiredUploads", () => {
+  it("deletes only uploads older than 24 hours", async () => {
+    const deleteObject = vi.fn(async () => {});
+    const result = await cleanupExpiredUploads(
+      [
+        { key: "uploads/old.mp4", lastModified: new Date("2026-07-06T11:00:00Z") },
+        { key: "uploads/fresh.mp4", lastModified: new Date("2026-07-07T11:30:00Z") },
+        { key: "uploads/unknown.mp4", lastModified: null },
+      ],
+      deleteObject,
+      new Date("2026-07-07T12:00:00Z"),
+      () => {}
+    );
+
+    expect(result).toEqual({ deletedKeys: ["uploads/old.mp4"], failedKeys: [] });
+    expect(deleteObject).toHaveBeenCalledWith("uploads/old.mp4");
+  });
+
+  it("reports a failed orphan deletion so the next hourly pass can retry", async () => {
+    const result = await cleanupExpiredUploads(
+      [{ key: "uploads/old.mp4", lastModified: new Date("2026-07-06T11:00:00Z") }],
+      async () => {
+        throw new Error("temporary R2 failure");
+      },
+      new Date("2026-07-07T12:00:00Z"),
+      () => {}
+    );
+
+    expect(result).toEqual({ deletedKeys: [], failedKeys: ["uploads/old.mp4"] });
   });
 });

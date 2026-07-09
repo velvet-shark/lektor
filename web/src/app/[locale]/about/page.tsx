@@ -1,4 +1,25 @@
+import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { localizedAlternates } from "@/lib/site-url";
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale } = await params;
+  const t = await getTranslations({ locale, namespace: "about" });
+  return {
+    title: t("title"),
+    description: t("body1"),
+    alternates: localizedAlternates(locale, "/about"),
+    openGraph: {
+      title: t("title"),
+      description: t("body1"),
+      url: `${locale === "pl" ? "/pl" : ""}/about`,
+    },
+  };
+}
 
 export default async function About({
   params,

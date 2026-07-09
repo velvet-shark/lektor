@@ -20,6 +20,7 @@ async function api(path: string, init: RequestInit): Promise<Response> {
   const res = await fetch(`${BASE}${path}`, {
     ...init,
     headers: { "xi-api-key": apiKey(), ...(init.headers ?? {}) },
+    signal: init.signal ?? AbortSignal.timeout(120_000),
   });
   if (!res.ok) {
     const body = await res.text().catch(() => "");

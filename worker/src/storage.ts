@@ -1,5 +1,5 @@
-import { createWriteStream } from "node:fs";
-import { readFile } from "node:fs/promises";
+import { createReadStream, createWriteStream } from "node:fs";
+import { stat } from "node:fs/promises";
 import { pipeline } from "node:stream/promises";
 import { Readable } from "node:stream";
 import {
@@ -70,9 +70,15 @@ export async function putObjectFromFile(
   filePath: string,
   contentType = "application/octet-stream"
 ): Promise<void> {
-  const body = await readFile(filePath);
+  const { size } = await stat(filePath);
   await r2().send(
-    new PutObjectCommand({ Bucket: bucket(), Key: key, Body: body, ContentType: contentType })
+    new PutObjectCommand({
+      Bucket: bucket(),
+      Key: key,
+      Body: createReadStream(filePath),
+      ContentLength: size,
+      ContentType: contentType,
+    })
   );
 }
 
@@ -81,18 +87,25 @@ export async function deleteObject(key: string): Promise<void> {
   await r2().send(new DeleteObjectCommand({ Bucket: bucket(), Key: key }));
 }
 
-/** List object keys under a prefix. */
-export async function listObjects(prefix: string): Promise<string[]> {
-  const keys: string[] = [];
+export interface StoredObject {
+  key: string;
+  lastModified: Date | null;
+}
+
+/** List objects under a prefix, including age for orphan cleanup. */
+export async function listObjects(prefix: string): Promise<StoredObject[]> {
+  const objects: StoredObject[] = [];
   let token: string | undefined;
   do {
     const res = await r2().send(
       new ListObjectsV2Command({ Bucket: bucket(), Prefix: prefix, ContinuationToken: token })
     );
-    for (const obj of res.Contents ?? []) if (obj.Key) keys.push(obj.Key);
+    for (const obj of res.Contents ?? []) {
+      if (obj.Key) objects.push({ key: obj.Key, lastModified: obj.LastModified ?? null });
+    }
     token = res.IsTruncated ? res.NextContinuationToken : undefined;
   } while (token);
-  return keys;
+  return objects;
 }
 
 /** Presigned PUT URL — for the web app to upload directly to R2. */
