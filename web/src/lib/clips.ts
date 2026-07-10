@@ -19,6 +19,19 @@ export interface GalleryClip {
 
 export const GALLERY: GalleryClip[] = [
   {
+    id: "zuck-hearing",
+    titleEn: "Zuckerberg in the Senate (2018)",
+    titlePl: "Zuckerberg w Senacie (2018)",
+    blurbEn: "Senator, we run ads. Now in flat Polish, the way history deserves to be remembered.",
+    blurbPl: "Senator, wyświetlamy reklamy. Płasko, po polsku, tak jak historia powinna brzmieć.",
+    originalUrl: "/gallery/zuck-hearing.mp4",
+    lektorUrl: "/gallery/zuck-hearing.lektor.mp4",
+    posterUrl: "/gallery/zuck-hearing.jpg",
+    durationS: 36,
+    license: "Public domain · official US Senate feed (2018)",
+    licenseUrl: "https://www.judiciary.senate.gov/committee-activity/hearings/facebook-social-media-privacy-and-the-use-and-abuse-of-data",
+  },
+  {
     id: "charade",
     titleEn: "Charade (1963)",
     titlePl: "Szarada (1963)",
