@@ -22,21 +22,26 @@ export const GALLERY: GalleryClip[] = [
     id: "zuck-hearing",
     titleEn: "Zuckerberg in the Senate (2018)",
     titlePl: "Zuckerberg w Senacie (2018)",
-    blurbEn: "Senator, we run ads. Now in flat Polish, the way history deserves to be remembered.",
-    blurbPl: "Senator, wyświetlamy reklamy. Płasko, po polsku, tak jak historia powinna brzmieć.",
+    blurbEn:
+      "Senator, we run ads. Now in flat Polish, the way history deserves to be remembered.",
+    blurbPl:
+      "Senator, wyświetlamy reklamy. Monotonnie, po polsku, tak jak powinna brzmieć historia.",
     originalUrl: "/gallery/zuck-hearing.mp4",
     lektorUrl: "/gallery/zuck-hearing.lektor.mp4",
     posterUrl: "/gallery/zuck-hearing.jpg",
     durationS: 36,
     license: "Public domain · official US Senate feed (2018)",
-    licenseUrl: "https://www.judiciary.senate.gov/committee-activity/hearings/facebook-social-media-privacy-and-the-use-and-abuse-of-data",
+    licenseUrl:
+      "https://www.judiciary.senate.gov/committee-activity/hearings/facebook-social-media-privacy-and-the-use-and-abuse-of-data",
   },
   {
     id: "charade",
     titleEn: "Charade (1963)",
     titlePl: "Szarada (1963)",
-    blurbEn: "Cary Grant and Audrey Hepburn flirt in Megève. One bored voice reads them both.",
-    blurbPl: "Cary Grant i Audrey Hepburn flirtują w Megève. Oboje czytani jednym znudzonym głosem.",
+    blurbEn:
+      "Cary Grant and Audrey Hepburn flirt in Megève. One bored voice reads them both.",
+    blurbPl:
+      "Cary Grant i Audrey Hepburn flirtują w Megève. Oboje czytani jednym znudzonym głosem.",
     originalUrl: "/gallery/charade.mp4",
     lektorUrl: "/gallery/charade.lektor.mp4",
     posterUrl: "/gallery/charade.jpg",
@@ -48,8 +53,10 @@ export const GALLERY: GalleryClip[] = [
     id: "his-girl-friday",
     titleEn: "His Girl Friday (1940)",
     titlePl: "Dziewczyna Piętaszek (1940)",
-    blurbEn: "The fastest dialogue ever filmed: 402 words in 90 seconds. The lektor is not impressed.",
-    blurbPl: "Najszybsze dialogi w historii kina: 402 słowa w 90 sekund. Lektor niewzruszony.",
+    blurbEn:
+      "The fastest dialogue ever filmed: 402 words in 90 seconds. The lektor is not impressed.",
+    blurbPl:
+      "Najszybsze dialogi w historii kina: 402 słowa w 90 sekund. Lektor niewzruszony.",
     originalUrl: "/gallery/his-girl-friday.mp4",
     lektorUrl: "/gallery/his-girl-friday.lektor.mp4",
     posterUrl: "/gallery/his-girl-friday.jpg",
@@ -61,8 +68,10 @@ export const GALLERY: GalleryClip[] = [
     id: "mclintock",
     titleEn: "McLintock! (1963)",
     titlePl: "McLintock! (1963)",
-    blurbEn: "John Wayne starts a fifty-person mudslide brawl. One voice keeps its composure.",
-    blurbPl: "John Wayne wywołuje bijatykę na pięćdziesiąt osób. Jeden głos zachowuje spokój.",
+    blurbEn:
+      "John Wayne starts a fifty-person mudslide brawl. One voice keeps its composure.",
+    blurbPl:
+      "John Wayne wywołuje bijatykę na pięćdziesiąt osób. Jeden głos zachowuje spokój.",
     originalUrl: "/gallery/mclintock.mp4",
     lektorUrl: "/gallery/mclintock.lektor.mp4",
     posterUrl: "/gallery/mclintock.jpg",
@@ -74,8 +83,10 @@ export const GALLERY: GalleryClip[] = [
     id: "superman",
     titleEn: "Superman (1941)",
     titlePl: "Superman (1941)",
-    blurbEn: "Faster than a speeding bullet. The lektor, famously, is not in a hurry.",
-    blurbPl: "Szybszy niż pędząca kula. Lektorowi, jak wiadomo, się nie spieszy.",
+    blurbEn:
+      "Faster than a speeding bullet. The lektor, famously, is not in a hurry.",
+    blurbPl:
+      "Szybszy niż pędząca kula. Lektorowi, jak wiadomo, się nie spieszy.",
     originalUrl: "/gallery/superman.mp4",
     lektorUrl: "/gallery/superman.lektor.mp4",
     posterUrl: "/gallery/superman.jpg",
@@ -87,21 +98,26 @@ export const GALLERY: GalleryClip[] = [
     id: "fast-furious",
     titleEn: "The Fast and the Furious (1955)",
     titlePl: "The Fast and the Furious (1955)",
-    blurbEn: "Yes, that title. The 1955 original: race day, barked orders, one unhurried voice.",
-    blurbPl: "Tak, ten tytuł. Oryginał z 1955: dzień wyścigu, krzyki, jeden niespieszny głos.",
+    blurbEn:
+      "Yes, that title. The 1955 original: race day, barked orders, one unhurried voice.",
+    blurbPl:
+      "Tak, ten tytuł. Oryginał z 1955: dzień wyścigu, krzyki, jeden niespieszny głos.",
     originalUrl: "/gallery/fast-furious.mp4",
     lektorUrl: "/gallery/fast-furious.lektor.mp4",
     posterUrl: "/gallery/fast-furious.jpg",
     durationS: 84,
     license: "Public domain · copyright not renewed (1955)",
-    licenseUrl: "https://en.wikipedia.org/wiki/The_Fast_and_the_Furious_(1955_film)",
+    licenseUrl:
+      "https://en.wikipedia.org/wiki/The_Fast_and_the_Furious_(1955_film)",
   },
   {
     id: "radek",
     titleEn: "Radek, lektor'd",
     titlePl: "Radek z lektorem",
-    blurbEn: "The builder of this site, read by the voice he built. Full circle, twice.",
-    blurbPl: "Autor tej strony, czytany przez głos, który sam zbudował. Pętla domknięta podwójnie.",
+    blurbEn:
+      "The builder of this site, read by the voice he built. Full circle, twice.",
+    blurbPl:
+      "Autor tej strony, czytany przez głos, który sam zbudował. Meta meta.",
     originalUrl: "/gallery/radek.mp4",
     lektorUrl: "/gallery/radek.lektor.mp4",
     posterUrl: "/gallery/radek.jpg",

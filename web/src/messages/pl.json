@@ -54,7 +54,7 @@
   },
   "about": {
     "title": "Głos, na którym wychowała się cała Polska",
-    "body1": "W Polsce zagranicznych filmów nigdy nie dubbingowała obsada aktorów. Był jeden człowiek. Lektor czytał wszystkie kwestie, płasko i niewzruszenie, ponad ściszonym oryginałem. Stallone, Streep, kosmici, dzieci: jeden głos. Ten styl to szeptanka. Obcokrajowcy słyszą zepsuty telewizor. My słyszymy dom.",
+    "body1": "W Polsce zagranicznych filmów nigdy nie dubbingowała obsada aktorów. Był jeden człowiek. Lektor czytał wszystkie kwestie, monotonnie i niewzruszenie, ponad ściszonym oryginałem. Stallone, Streep, kosmici, dzieci: jeden głos. Ten styl to szeptanka. Obcokrajowcy słyszą zepsuty telewizor. My słyszymy dom.",
     "body2": "Mati Staniszewski i Piotr Dąbkowski wychowali się na tym głosie i po części dlatego założyli ElevenLabs. Chcieli, żeby maszyny mówiły każdym językiem porządnie. W 2026 ich firma została wyceniona na 22 miliardy dolarów, kilka tygodni po inwestycji polskiego rządu.",
     "body3": "Ta strona domyka pętlę: technologia, którą zainspirował lektor, czyta teraz jak on. Każdy klip jest transkrybowany przez scribe_v2, tłumaczony na płaski lektorski rejestr przez LLM, czytany jednym zaprojektowanym głosem w multilingual v2 i miksowany nad ściszonym oryginałem z autentycznym opóźnieniem od 600 do 900 ms. Lektor zawsze zaczyna później. Na tym polega rzemiosło.",
     "body4": "Nie sklonowano głosu żadnego prawdziwego lektora. Ani Knapika, ani Gudowskiego, nikogo. Ten głos zaprojektowano od zera: archetyp, nie osoba. Jestem Polakiem, więc sprawdziłem dwa razy.",
