@@ -50,6 +50,35 @@ Env (see `worker/.env.example`): `ELEVENLABS_API_KEY`, `ANTHROPIC_API_KEY`,
 `DATABASE_URL`, `CLOUDFLARE_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`,
 `R2_SECRET_ACCESS_KEY`, `R2_BUCKET`, `R2_PUBLIC_BASE`, `LEKTOR_VOICE_ID`.
 
+## Deploying
+
+There is no GitHub integration. Pushing to GitHub deploys nothing; both
+deploys are manual, from a local checkout.
+
+### Web (Vercel)
+
+The `web/` directory is linked to the Vercel project `lektor` (team
+`velvetsharks-projects`) via `web/.vercel/project.json`. The CLI uploads the
+local files directly, so whatever is on disk is what ships:
+
+```bash
+cd web
+pnpm typecheck && pnpm build      # catch errors before spending a deploy
+npx vercel@latest deploy --prod   # upload, remote build, promote to prod
+```
+
+Serves https://thelektor.pl (proxied by Cloudflare; `/gallery/*` is edge-cached
+with a 30-day TTL, so replacing a gallery video needs a cache purge in the
+Cloudflare dashboard or a new file name). Environment variables live in Vercel,
+not in the repo:
+
+```bash
+npx vercel@latest env ls production
+printf 'VALUE' | npx vercel@latest env add NAME production   # add or change
+```
+
+After changing an env var, deploy again; values are baked at build time.
+
 ### Production upload prerequisite
 
 Uploads go directly from the browser to R2, so the bucket must have a CORS
