@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { NextIntlClientProvider, hasLocale } from "next-intl";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { notFound } from "next/navigation";
@@ -115,6 +116,14 @@ export default async function LocaleLayout({
             </footer>
           </div>
         </NextIntlClientProvider>
+        <Script id="plausible-init" strategy="afterInteractive">
+          {`window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};plausible.init()`}
+        </Script>
+        <Script
+          id="plausible-script"
+          src="https://pls.velvetshark.com/js/pa-DOVXmipIoFQs56iIWGwLE.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );
