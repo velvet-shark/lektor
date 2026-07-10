@@ -4,7 +4,7 @@
     "tagline": "The voice that started a $22B company.",
     "heroLead": "Poland dubbed Hollywood with one bored man reading every part. It was perfect. The founders of ElevenLabs grew up on that voice. I rebuilt him with their own technology.",
     "heroCta": "Lektor your own clip",
-    "galleryTitle": "Hear it",
+    "galleryTitle": "Hear the lektor",
     "galleryHint": "Play a clip, then flip the switch. Same moment, two worlds.",
     "original": "Original",
     "lektor": "Lektor",
@@ -62,7 +62,7 @@
   },
   "powiedz": {
     "title": "Say it like a lektor",
-    "hint": "Type anything in any language and the lektor reads it back exactly as written, with his professional indifference. Nothing gets translated here. English in, English out, plus a Polish shrug. Works for tweets, threats and wedding vows.",
+    "hint": "Type anything in any language and the lektor reads it back exactly as written, with his professional indifference. Nothing gets translated here. If you put English in, you get English out, plus a Polish shrug. Works for tweets, threats and wedding vows.",
     "placeholder": "e.g. I'm going to make him an offer he can't refuse",
     "button": "Read it",
     "generating": "The lektor clears his throat…",

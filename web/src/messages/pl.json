@@ -2,9 +2,9 @@
   "site": {
     "title": "The Lektor",
     "tagline": "Głos, od którego wszystko się zaczęło.",
-    "heroLead": "Cały Hollywood czytany przez jednego znudzonego pana. I było idealnie. Założyciele ElevenLabs wychowali się na tym głosie. Odtworzyłem go ich własną technologią.",
-    "heroCta": "Zlektoruj własny klip",
-    "galleryTitle": "Posłuchaj",
+    "heroLead": "Cała produkcja Hollywood czytana przez jednego znudzonego faceta. I było idealnie. Założyciele ElevenLabs wychowali się na tym głosie. Odtworzyłem go ich własną technologią.",
+    "heroCta": "Zlektoruj własne wideo",
+    "galleryTitle": "Posłuchaj lektora",
     "galleryHint": "Włącz klip i przełącz w trakcie. Ten sam moment, dwa światy.",
     "original": "Oryginał",
     "lektor": "Lektor",
@@ -24,7 +24,7 @@
   "upload": {
     "title": "Zlektoruj własny klip",
     "hint": "mp4, mov lub webm · do 90 sekund · do 150 MB · musi zawierać mowę",
-    "drop": "Upuść wideo tutaj albo kliknij, żeby wybrać",
+    "drop": "Wrzuć wideo tutaj albo kliknij, żeby wybrać plik",
     "consent": "Wgrywaj tylko materiały, do których masz prawa. Pliki znikają po 24 godzinach.",
     "tooLong": "Klip ma ponad 90 sekund. Przytnij i spróbuj jeszcze raz.",
     "tooBig": "Plik ma ponad 150 MB. Mniejszy eksport w zupełności wystarczy.",
