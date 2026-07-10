@@ -32,16 +32,23 @@ export interface MixOptions {
   lofi?: boolean;
 }
 
-/** The 90s TV chain: telephone-adjacent band, squashed dynamics, hint of room. */
+/**
+ * The 90s TV chain: telephone-adjacent band, squashed dynamics, hint of room.
+ * Level-preserving: the original tuning lost ~13dB (compressor threshold too
+ * low, echo in_gain 0.7), leaving the lektor quieter than the ducked original
+ * on loud user uploads. This chain lands segments at ~-16dB mean / -1dB peak,
+ * ~12dB above the ducked original.
+ */
 export const LOFI_CHAIN =
   "highpass=f=150,lowpass=f=6500," +
-  "acompressor=threshold=-18dB:ratio=3:attack=5:release=120:makeup=2," +
-  "aecho=0.7:0.25:16:0.18";
+  "acompressor=threshold=-24dB:ratio=2:attack=5:release=120:makeup=6," +
+  "aecho=0.9:0.2:16:0.12," +
+  "volume=9dB";
 
 export function buildFilterGraph(
   placements: Placement[],
   windows: DuckWindow[],
-  { duckLevel = 0.3, fadeMs = 180, lofi = true }: { duckLevel?: number; fadeMs?: number; lofi?: boolean } = {}
+  { duckLevel = 0.25, fadeMs = 180, lofi = true }: { duckLevel?: number; fadeMs?: number; lofi?: boolean } = {}
 ): { filter: string; lektorInputs: string[] } {
   const fade = fadeMs / 1000;
   // Static volume automation (predictable > sidechain): for each lektor window
