@@ -12,5 +12,12 @@ gallery/sources/
 *.webm
 *.wav
 *.mp3
-!launch/**/*.mp4
 .claude/worktrees/
+
+# Private planning, launch, and deployment material
+/launch/
+/docs/
+/BUILD_LOG.md
+/Goal - The Lektor.md
+/SPEND.md
+/WORKER_DEPLOY.md

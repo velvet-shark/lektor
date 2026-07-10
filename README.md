@@ -17,7 +17,7 @@ video ─▶ scribe_v2 (word timestamps + diarization)
       ─▶ ffmpeg mix: duck original to 30%, 180ms ramps, loudnorm, -c:v copy
 ```
 
-### The timing algorithm (PRD §3.4)
+### The timing algorithm
 
 1. Lektor starts **600–900ms after** the original line — you hear the original first; that's the signature.
 2. Too long for its window → **atempo up to 1.12×** → still too long → **overlap next line ≤800ms** (authentic) → still too long → back to the LLM: "shorten by 30%", re-synthesize, re-schedule.
@@ -31,11 +31,9 @@ Deterministic and unit-tested (15 synthetic cases) before touching real audio:
 
 - `pipeline/` — shared core + local CLI: `pnpm cli -i in.mp4 -o out.mp4 -v <voiceId>`
 - `web/` — Next.js 15 app (Vercel): gallery with Original/Lektor A-B toggle, upload flow, `/powiedz`, EN/PL
-- `worker/` — Node + ffmpeg container (Fly.io): job queue (max 3 concurrent), R2 storage, 24h auto-delete cron
+- `worker/` — Node + ffmpeg container: job queue (max 3 concurrent), R2 storage, 24h auto-delete cron
 - `voice/` — Voice Design candidate generation + compare page (no real lektor cloned — hard rule)
-- `launch/` — prepared launch assets (posting is manual, always)
 - `db/schema.sql` — Neon Postgres schema
-- `BUILD_LOG.md` — decisions + verified API params; `SPEND.md` — every ElevenLabs call
 
 ## Running locally
 
@@ -52,8 +50,8 @@ Env (see `worker/.env.example`): `ELEVENLABS_API_KEY`, `ANTHROPIC_API_KEY`,
 
 ## Deploying
 
-There is no GitHub integration. Pushing to GitHub deploys nothing; both
-deploys are manual, from a local checkout.
+Production deployments are manual from a local checkout; pushing to GitHub
+alone deploys nothing.
 
 ### Web (Vercel)
 
