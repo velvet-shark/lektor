@@ -1,6 +1,6 @@
 # The Lektor worker — build from the monorepo root:
 #   docker build -f worker/Dockerfile -t lektor-worker .
-FROM node:22-slim
+FROM node:22.23.4-slim
 
 RUN apt-get update \
   && apt-get install -y --no-install-recommends ffmpeg \
